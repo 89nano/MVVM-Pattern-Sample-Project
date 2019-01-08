@@ -1,89 +1,131 @@
 ﻿<UserControl x:Class="MVVM_Pattern_Sample_Project.View.PatientView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:MVVM_Pattern_Sample_Project.View"
              xmlns:model="clr-namespace:MVVM_Pattern_Sample_Project.Model"
              xmlns:mvvmPatternSampleProject="clr-namespace:MVVM_Pattern_Sample_Project"
              xmlns:viewModels="clr-namespace:MVVM_Pattern_Sample_Project.ViewModels"
-             
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
              d:DesignHeight="450"
              Width="582.627">
-    
+
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="150"/>
+            <RowDefinition Height="150" />
             <RowDefinition Height="200" />
-            <RowDefinition Height="10"/>
+            <RowDefinition Height="10" />
 
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="150" />
             <ColumnDefinition Width="*" />
 
         </Grid.ColumnDefinitions>
-        
+
         <Image Grid.Column="0"
-                HorizontalAlignment="Left"
-                Margin="25,25"
-                Height="100" Width="100">
+               HorizontalAlignment="Left"
+               Margin="25,25"
+               Height="100"
+               Width="100"
+               Source="{Binding Path=PicturePath}">
         </Image>
 
         <StackPanel Grid.Row="0"
                     Grid.Column="1">
-            
-            <TextBlock>
-               Ana Santos Quiñones
+
+            <TextBlock Text ="{Binding Path=FullName}">
+               
             </TextBlock>
         </StackPanel>
-        
+
         <TabControl Grid.Row="1"
-                    Grid.ColumnSpan="2" Grid.Column="0"
-                    Margin="10,0,10,0">
+                    Grid.ColumnSpan="2"
+                    Grid.Column="0"
+                    Margin="10,0,216,20">
 
             <TabItem Header="Demographics">
                 <StackPanel HorizontalAlignment="Left">
                     <ItemsControl ItemsSource="{Binding Path=Demographics}">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate DataType="viewModels:PatientViewModel">
-                            <StackPanel Orientation="Horizontal">
-                               <TextBlock>Full Name </TextBlock>
-                               <!--<TextBox Text="{Binding Path=FullName, Mode=TwoWay}"
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate DataType="viewModels:PatientViewModel">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock>Full Name</TextBlock>
+                                    <!--<TextBox Text="{Binding Path=FullName, Mode=TwoWay}"
                                         >fasd</TextBox>-->
 
-                            </StackPanel>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-              
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+
                     </ItemsControl>
                 </StackPanel>
 
-            
+
             </TabItem>
-            
+
 
             <TabItem Header="Diagnostics">
-               <ListBox Width="300"
-                        HorizontalAlignment="Left"
-                        ItemsSource="{Binding Path=Diagnostics}"
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*" />
+
+                    </Grid.RowDefinitions>
+                <ListBox Width="350"
+                         HorizontalAlignment="Left"
+                         ItemsSource="{Binding Path=Diagnostics}"
                         ></ListBox>
+                
+                    <StackPanel Grid.Row="1"
+                                Orientation="Horizontal"
+                                HorizontalAlignment="Right"
+                                Width="145">
+                        <Button Margin="0,0"
+                                Width="50"
+                                Height="20">Add</Button>
+                        <Button Margin="10 0"
+                                Width="50"
+                                Height="20">Remove</Button>
+
+                    </StackPanel>
+                    
+               </Grid>
             </TabItem>
+
             <TabItem Header="Allergies">
-            <ListBox Width="300"
-                     HorizontalAlignment="Left"
-                     ItemsSource="{Binding Path=Allergies}"></ListBox>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+
+                    </Grid.RowDefinitions>
+                    <ListBox Width="355"
+                             HorizontalAlignment="Left"
+                             ItemsSource="{Binding Path=Allergies}"
+                             Margin="0,0,0,50"></ListBox>
+
+                    <StackPanel Grid.Row="1"
+                                Orientation="Horizontal"
+                                HorizontalAlignment="Right"
+                                Width="145">
+                        <Button Margin="0,0"
+                                Width="50"
+                                Height="20">Add</Button>
+                        <Button Margin="10 0"
+                                Width="50"
+                                Height="20">Remove</Button>
+
+                    </StackPanel>
+
+                </Grid>
+                
             </TabItem>
         </TabControl>
-
-
-
-        <Button Grid.Row="2" Grid.Column="0"
-                HorizontalAlignment="Right"
-                />
+      
 
     </Grid>
-    
-   
+
+
 </UserControl>

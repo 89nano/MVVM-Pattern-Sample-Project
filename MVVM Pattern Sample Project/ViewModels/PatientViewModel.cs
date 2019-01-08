@@ -13,7 +13,7 @@ using Newtonsoft.Json;
 
 namespace MVVM_Pattern_Sample_Project.ViewModels
 {
-    public class PatientViewModel
+    public class PatientViewModel : PatientModel
     {
 
         public ObservableCollection<PatientModel> PatientSummary { get; set; }
@@ -48,6 +48,8 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
                     Allergies.Add(patientallergy);
                 }
 
+
+                FullName = patientList.FullName;
             }
         }
 

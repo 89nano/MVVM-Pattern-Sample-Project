@@ -99,8 +99,9 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
-    <None Include="bin\Debug\Data\patientData.json" />
+    <Resource Include="bin\Debug\Data\patientData.json" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -111,7 +112,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="7372099-An-arab-person-working-on-laptop-isolated-on-white-background-Stock-Photo.jpg" />
+    <Resource Include="bin\Debug\Images\StockPhoto.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Repositories\" />
