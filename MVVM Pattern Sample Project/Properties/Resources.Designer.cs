@@ -70,5 +70,15 @@ namespace MVVM_Pattern_Sample_Project.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] patientData {
+            get {
+                object obj = ResourceManager.GetObject("patientData", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
     }
 }

@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MVVM_Pattern_Sample_Project.ViewModels;
 
 namespace MVVM_Pattern_Sample_Project.View
 {
@@ -23,6 +24,7 @@ namespace MVVM_Pattern_Sample_Project.View
         public PatientView()
         {
             InitializeComponent();
+            DataContext = new PatientViewModel();
         }
     }
 }

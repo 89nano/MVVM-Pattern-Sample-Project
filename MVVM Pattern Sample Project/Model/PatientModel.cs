@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -9,10 +10,8 @@ using System.Threading.Tasks;
 
 namespace MVVM_Pattern_Sample_Project.Model
 {
-    public class PatientModel
-    { }
-
-    public class Patient : INotifyPropertyChanged
+   
+    public class PatientModel : INotifyPropertyChanged
     {
 
         private string fullName;
@@ -108,7 +107,7 @@ namespace MVVM_Pattern_Sample_Project.Model
 
         }
 
-
+        public ObservableCollection<string> Diagnostics { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 

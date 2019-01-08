@@ -4,9 +4,14 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MVVM_Pattern_Sample_Project.View"
+             xmlns:model="clr-namespace:MVVM_Pattern_Sample_Project.Model"
+             xmlns:mvvmPatternSampleProject="clr-namespace:MVVM_Pattern_Sample_Project"
+             xmlns:viewModels="clr-namespace:MVVM_Pattern_Sample_Project.ViewModels"
+             
              mc:Ignorable="d" 
              d:DesignHeight="450"
              Width="582.627">
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="150"/>
@@ -35,17 +40,18 @@
         </StackPanel>
         
         <TabControl Grid.Row="1"
-                    Grid.ColumnSpan="2"
+                    Grid.ColumnSpan="2" Grid.Column="0"
                     Margin="10,0,10,0">
 
             <TabItem Header="Demographics">
                 <StackPanel HorizontalAlignment="Left">
-                    <ItemsControl ItemsSource="{Binding Path=PatientViewModel}">
+                    <ItemsControl ItemsSource="{Binding Path=Demographics}">
                     <ItemsControl.ItemTemplate>
-                        <DataTemplate>
+                        <DataTemplate DataType="viewModels:PatientViewModel">
                             <StackPanel Orientation="Horizontal">
-                               <TextBlock>Full Name</TextBlock>
-                               <TextBox Text="{Binding Path=FullName}">fasd</TextBox>
+                               <TextBlock>Full Name </TextBlock>
+                               <!--<TextBox Text="{Binding Path=FullName, Mode=TwoWay}"
+                                        >fasd</TextBox>-->
 
                             </StackPanel>
                         </DataTemplate>
@@ -58,15 +64,20 @@
             </TabItem>
             
 
-            <TabItem Header="Diagnostics" />
+            <TabItem Header="Diagnostics">
+               <ListBox Width="150"
+                        HorizontalAlignment="Left"
+                        ItemsSource="{Binding Path=Diagnostics}"
+                        ></ListBox>
+            </TabItem>
             <TabItem Header="Allergies" />
 
         </TabControl>
 
 
 
-        <Button Grid.Row="2" 
-            HorizontalAlignment="Right"
+        <Button Grid.Row="2" Grid.Column="0"
+                HorizontalAlignment="Right"
                 />
 
     </Grid>
