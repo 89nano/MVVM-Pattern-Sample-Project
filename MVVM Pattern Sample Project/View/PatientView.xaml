@@ -26,17 +26,16 @@
 
         <Image Grid.Column="0"
                HorizontalAlignment="Left"
-               Margin="25,25"
-               Height="100"
-               Width="100"
-               Source="{Binding Path=PicturePath}">
-        </Image>
+               Margin="10,10,0,10"
+               Width="130"
+               Source="/bin/Debug/Images/StockPhoto.jpg"
+               Stretch="Fill"/>
 
         <StackPanel Grid.Row="0"
                     Grid.Column="1">
 
-            <TextBlock Text ="{Binding Path=FullName}">
-               
+            <TextBlock Text="{Binding Path=FullName}">
+
             </TextBlock>
         </StackPanel>
 
@@ -69,42 +68,13 @@
             <TabItem Header="Diagnostics">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*" />
-
-                    </Grid.RowDefinitions>
-                <ListBox Width="350"
-                         HorizontalAlignment="Left"
-                         ItemsSource="{Binding Path=Diagnostics}"
-                        ></ListBox>
-                
-                    <StackPanel Grid.Row="1"
-                                Orientation="Horizontal"
-                                HorizontalAlignment="Right"
-                                Width="145">
-                        <Button Margin="0,0"
-                                Width="50"
-                                Height="20">Add</Button>
-                        <Button Margin="10 0"
-                                Width="50"
-                                Height="20">Remove</Button>
-
-                    </StackPanel>
-                    
-               </Grid>
-            </TabItem>
-
-            <TabItem Header="Allergies">
-                <Grid>
-                    <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
                         <RowDefinition Height="*" />
 
                     </Grid.RowDefinitions>
-                    <ListBox Width="355"
+                    <ListBox Width="350"
                              HorizontalAlignment="Left"
-                             ItemsSource="{Binding Path=Allergies}"
-                             Margin="0,0,0,50"></ListBox>
+                             ItemsSource="{Binding Path=Diagnostics}"></ListBox>
 
                     <StackPanel Grid.Row="1"
                                 Orientation="Horizontal"
@@ -120,10 +90,39 @@
                     </StackPanel>
 
                 </Grid>
-                
+            </TabItem>
+
+            <TabItem Header="Allergies">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+
+                    </Grid.RowDefinitions>
+                    <ListBox Width="350"
+                             HorizontalAlignment="Left"
+                             ItemsSource="{Binding Path=Allergies}">
+
+                    </ListBox>
+
+                    <StackPanel Grid.Row="1"
+                                Orientation="Horizontal"
+                                HorizontalAlignment="Right"
+                                Width="145">
+                        <Button Margin="0,0"
+                                Width="50"
+                                Height="20">Add</Button>
+                        <Button Margin="10 0"
+                                Width="50"
+                                Height="20">Remove</Button>
+
+                    </StackPanel>
+
+                </Grid>
+
             </TabItem>
         </TabControl>
-      
+
 
     </Grid>
 

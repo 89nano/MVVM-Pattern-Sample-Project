@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:MVVM_Pattern_Sample_Project"
         xmlns:views="clr-namespace:MVVM_Pattern_Sample_Project.View"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="400">
     <Grid>
         <views:PatientView x:Name="PatientViewControl"/>
     </Grid>

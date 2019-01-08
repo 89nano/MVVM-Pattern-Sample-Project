@@ -50,6 +50,8 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
 
 
                 FullName = patientList.FullName;
+                PictureName = @"/bin/Debug/Images/" + patientList.PictureName;
+                
             }
         }
 

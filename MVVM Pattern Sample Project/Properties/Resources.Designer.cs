@@ -61,23 +61,22 @@ namespace MVVM_Pattern_Sample_Project.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _7372099_An_arab_person_working_on_laptop_isolated_on_white_background_Stock_Photo {
-            get {
-                object obj = ResourceManager.GetObject("_7372099_An_arab_person_working_on_laptop_isolated_on_white_background_Stock_Phot" +
-                        "o", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
         internal static byte[] patientData {
             get {
                 object obj = ResourceManager.GetObject("patientData", resourceCulture);
                 return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap StockPhoto {
+            get {
+                object obj = ResourceManager.GetObject("StockPhoto", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }

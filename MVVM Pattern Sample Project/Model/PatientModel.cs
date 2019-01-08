@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MVVM_Pattern_Sample_Project.Model
 {
@@ -19,6 +14,7 @@ namespace MVVM_Pattern_Sample_Project.Model
         private DateTime birthDate;
         private int age;
         private string notes;
+        private string pictureName;
         private string ageAndSexSummary;
         private string diagnosticsSummary;
         private string allergiesSummary;
@@ -34,6 +30,17 @@ namespace MVVM_Pattern_Sample_Project.Model
                     fullName = value;
 
                 OnPropertyChanged("FullName");
+            }
+        }
+
+        public string PictureName
+        {
+            get { return pictureName; }
+
+            set
+            {
+                if (value != null && pictureName != value)
+                    pictureName = value;
             }
         }
 
