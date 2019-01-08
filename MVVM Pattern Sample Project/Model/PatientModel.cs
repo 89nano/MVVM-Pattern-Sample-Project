@@ -12,7 +12,7 @@ namespace MVVM_Pattern_Sample_Project.Model
     public class PatientModel
     { }
 
-    public class Patient : INotifyPropertyChanged
+    public class Patient
     {
 
         private string fullName;
@@ -20,7 +20,6 @@ namespace MVVM_Pattern_Sample_Project.Model
         private DateTime birthDate;
         private int age;
         private string notes;
-        private string ageAndSexSummary;
         private string diagnosticsSummary;
         private string allergiesSummary;
 
@@ -34,7 +33,6 @@ namespace MVVM_Pattern_Sample_Project.Model
                 if (value != null && fullName != value)
                     fullName = value;
 
-                OnPropertyChanged("FullName");
             }
         }
 
@@ -47,10 +45,8 @@ namespace MVVM_Pattern_Sample_Project.Model
                 if (DateTime.TryParse(value, out birthDate) && birthDate != DateTime.Parse(value))
                 {
                     birthDate = DateTime.Parse(value);
-                    CalculateAge(birthDate);
                 }
 
-                OnPropertyChanged("BirthDate");
                 
             }
         }
@@ -70,11 +66,6 @@ namespace MVVM_Pattern_Sample_Project.Model
                 if (sex != null && sex != value)
                     sex = value;
 
-                OnPropertyChanged("Sex");
-
-                if (!string.IsNullOrEmpty(sex) && age > 0)
-                    GenerateAgeAndSexText();
-                
             }
         }
 
@@ -90,32 +81,14 @@ namespace MVVM_Pattern_Sample_Project.Model
             {
                 if (notes != null && notes != value)
                     notes = value;
-
-                 OnPropertyChanged("Notes");
             }
         }
 
 
-        public string AgeAndSexSummary
-        {
-            get => ageAndSexSummary;
-            set
-            {
-                if (!string.Equals(ageAndSexSummary, value, StringComparison.Ordinal))
-                    ageAndSexSummary = value;
-                OnPropertyChanged("AgeAndSexSummary");
-            }
-
-        }
+        public string AgeAndSexSummary { get; set; }
 
 
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+       
     }
 
 
