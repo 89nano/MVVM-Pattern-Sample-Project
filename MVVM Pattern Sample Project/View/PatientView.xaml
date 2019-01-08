@@ -65,13 +65,16 @@
             
 
             <TabItem Header="Diagnostics">
-               <ListBox Width="150"
+               <ListBox Width="300"
                         HorizontalAlignment="Left"
                         ItemsSource="{Binding Path=Diagnostics}"
                         ></ListBox>
             </TabItem>
-            <TabItem Header="Allergies" />
-
+            <TabItem Header="Allergies">
+            <ListBox Width="300"
+                     HorizontalAlignment="Left"
+                     ItemsSource="{Binding Path=Allergies}"></ListBox>
+            </TabItem>
         </TabControl>
 
 

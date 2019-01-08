@@ -19,12 +19,13 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
         public ObservableCollection<PatientModel> PatientSummary { get; set; }
         public ObservableCollection<string> Diagnostics { get; set; }
 
-        public ObservableCollection<PatientModel> Allergies { get; set; }
+        public ObservableCollection<string> Allergies { get; set; }
 
 
         public PatientViewModel()
         {
             Diagnostics = new ObservableCollection<string>();
+            Allergies = new ObservableCollection<string>();
             LoadPatient();
         }
 
@@ -37,19 +38,22 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
                 var patientList = JsonConvert.DeserializeObject<PatientModel>(json);
 
 
-                    foreach (var patientDiagnostic in patientList.Diagnostics)
-                    {
-                        Diagnostics.Add(patientDiagnostic);
-                    }
+                foreach (var patientDiagnostic in patientList.Diagnostics)
+                {
+                    Diagnostics.Add(patientDiagnostic);
+                }
 
-                
+                foreach (var patientallergy in patientList.Allergies)
+                {
+                    Allergies.Add(patientallergy);
+                }
 
             }
         }
 
-       
+
 
     }
 
-    
+
 }

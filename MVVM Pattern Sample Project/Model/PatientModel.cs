@@ -108,6 +108,8 @@ namespace MVVM_Pattern_Sample_Project.Model
         }
 
         public ObservableCollection<string> Diagnostics { get; set; }
+        public ObservableCollection<string> Allergies { get; set; }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 
