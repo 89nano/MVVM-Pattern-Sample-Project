@@ -7,9 +7,19 @@
              xmlns:model="clr-namespace:MVVM_Pattern_Sample_Project.Model"
              xmlns:mvvmPatternSampleProject="clr-namespace:MVVM_Pattern_Sample_Project"
              xmlns:viewModels="clr-namespace:MVVM_Pattern_Sample_Project.ViewModels"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d"
              d:DesignHeight="450"
              Width="582.627">
+ <UserControl.Resources>
+     <x:Array x:Key="sexItems"
+              Type="sys:String"
+              xmlns:sys="clr-namespace:System;assembly=mscorlib">
+            <sys:String>Male</sys:String>
+         <sys:String>Female</sys:String>
+     </x:Array>
+ </UserControl.Resources>
+    
 
     <Grid>
         <Grid.RowDefinitions>
@@ -80,7 +90,10 @@
 
                                 <TextBox Text="{Binding Path=FullName, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                                 <DatePicker Text="{Binding Path=BirthDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-
+                                <ComboBox ItemsSource="{StaticResource sexItems}"
+                                          SelectedItem="{Binding Path=Sex,
+                                    Mode=TwoWay,
+                                    UpdateSourceTrigger=PropertyChanged}"/>
                             </StackPanel>
 
                         </DataTemplate>
