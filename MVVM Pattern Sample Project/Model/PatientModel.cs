@@ -64,10 +64,32 @@ namespace MVVM_Pattern_Sample_Project.Model
 
         private void CalculateAge(DateTime birthDate)
         {
+            
             var today = DateTime.UtcNow;
-    //        age = int.Parse((today - birthDate).ToString());
+            var dateDifference = today - birthDate;
+            var daysToYears = (float) (dateDifference.TotalDays / 365);
+            var daysToMonths = (float)(dateDifference.TotalDays / 30.416);
+            var yearMonthOrDay = YearMonthOrDay.Year;
+            if(daysToYears >= 1)
+            {
+                age =(int) daysToYears;
+            }
+            else if(daysToMonths >= 1)
+            {
+                age = (int) (dateDifference.TotalDays / 30.416);
+                yearMonthOrDay = YearMonthOrDay.Month;
+            }
+            
+            else
+            {
+
+                age = (int) dateDifference.TotalDays;
+                yearMonthOrDay = YearMonthOrDay.Day;
+            }
+
+          
             if (!string.IsNullOrEmpty(sex) && age != 0)
-                GenerateAgeAndSexText();
+                GenerateAgeAndSexText(yearMonthOrDay);
         }
 
         public string Sex
@@ -86,9 +108,9 @@ namespace MVVM_Pattern_Sample_Project.Model
             }
         }
 
-        private void GenerateAgeAndSexText()
+        private void GenerateAgeAndSexText(YearMonthOrDay yearMonthOrDay = YearMonthOrDay.Year)
         {
-            AgeAndSexSummary = $"{age} year old {sex} patient.";
+            AgeAndSexSummary = $"{age} {yearMonthOrDay} old {sex} patient.";
         }
 
         public string Notes
@@ -126,7 +148,16 @@ namespace MVVM_Pattern_Sample_Project.Model
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+
+        enum YearMonthOrDay
+        {
+            Year,
+            Month,
+            Day
+        }
     }
+
 
 
 }

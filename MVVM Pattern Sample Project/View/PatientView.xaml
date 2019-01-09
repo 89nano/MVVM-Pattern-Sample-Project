@@ -32,14 +32,10 @@
                Margin="10,10,0,10"
                Width="130"
                Source="{Binding Path=PictureName,Mode=OneWay}"
-               Stretch="Fill"
-               />
-        <!--<TextBlock Grid.Row="0" Grid.Column="1"
-                   Text="{Binding Path=PictureName,Mode=TwoWay}"></TextBlock>-->
-
+               Stretch="Fill"/>
+                    
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
-
 
         </ItemsControl>
 

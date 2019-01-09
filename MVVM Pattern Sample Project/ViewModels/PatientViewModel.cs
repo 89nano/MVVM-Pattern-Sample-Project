@@ -52,8 +52,6 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
                 }
 
                 
-                //PictureName = @"/bin/Debug/Images/" + patientList.PictureName;
-                
             }
         }
 
