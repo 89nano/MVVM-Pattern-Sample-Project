@@ -56,7 +56,6 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
         }
 
 
-
     }
 
 

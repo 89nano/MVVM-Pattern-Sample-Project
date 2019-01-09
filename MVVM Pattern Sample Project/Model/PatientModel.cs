@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -6,7 +7,7 @@ using MVVM_Pattern_Sample_Project.Properties;
 
 namespace MVVM_Pattern_Sample_Project.Model
 {
-   
+
     public class PatientModel : INotifyPropertyChanged
     {
 
@@ -41,7 +42,7 @@ namespace MVVM_Pattern_Sample_Project.Model
             set
             {
                 if (value != null && pictureName != value)
-                    pictureName =Resources.ApplicationImagesDirectory + value;
+                    pictureName = Resources.ApplicationImagesDirectory + value;
             }
         }
 
@@ -51,43 +52,45 @@ namespace MVVM_Pattern_Sample_Project.Model
 
             set
             {
-                if (DateTime.TryParse(value, out birthDate) && birthDate.ToShortDateString() != value)
+
+                if (DateTime.TryParse(value, out birthDate))
                 {
                     birthDate = DateTime.Parse(value);
                     CalculateAge(birthDate);
                 }
 
                 OnPropertyChanged("BirthDate");
-                
+
             }
         }
 
         private void CalculateAge(DateTime birthDate)
         {
-            
+
             var today = DateTime.UtcNow;
             var dateDifference = today - birthDate;
-            var daysToYears = (float) (dateDifference.TotalDays / 365);
+            var daysToYears = (float)(dateDifference.TotalDays / 365);
             var daysToMonths = (float)(dateDifference.TotalDays / 30.416);
             var yearMonthOrDay = YearMonthOrDay.Year;
-            if(daysToYears >= 1)
+
+            if (daysToYears >= 1)
             {
-                age =(int) daysToYears;
+                age = (int)daysToYears;
             }
-            else if(daysToMonths >= 1)
+            else if (daysToMonths >= 1)
             {
-                age = (int) (dateDifference.TotalDays / 30.416);
+                age = (int)(dateDifference.TotalDays / 30.416);
                 yearMonthOrDay = YearMonthOrDay.Month;
             }
-            
+
             else
             {
 
-                age = (int) dateDifference.TotalDays;
+                age = (int)dateDifference.TotalDays;
                 yearMonthOrDay = YearMonthOrDay.Day;
             }
 
-          
+
             if (!string.IsNullOrEmpty(sex) && age != 0)
                 GenerateAgeAndSexText(yearMonthOrDay);
         }
@@ -104,9 +107,11 @@ namespace MVVM_Pattern_Sample_Project.Model
 
                 if (!string.IsNullOrEmpty(sex) && age != 0)
                     GenerateAgeAndSexText();
-                
+
             }
         }
+
+
 
         private void GenerateAgeAndSexText(YearMonthOrDay yearMonthOrDay = YearMonthOrDay.Year)
         {
@@ -121,7 +126,7 @@ namespace MVVM_Pattern_Sample_Project.Model
                 if (notes != null && notes != value)
                     notes = value;
 
-                 OnPropertyChanged("Notes");
+                OnPropertyChanged("Notes");
             }
         }
 
@@ -137,6 +142,8 @@ namespace MVVM_Pattern_Sample_Project.Model
             }
 
         }
+
+
 
         public ObservableCollection<string> Diagnostics { get; set; }
         public ObservableCollection<string> Allergies { get; set; }
@@ -156,6 +163,7 @@ namespace MVVM_Pattern_Sample_Project.Model
             Month,
             Day
         }
+        
     }
 
 

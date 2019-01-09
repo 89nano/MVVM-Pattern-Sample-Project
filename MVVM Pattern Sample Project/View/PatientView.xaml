@@ -91,9 +91,7 @@
                                 <TextBox Text="{Binding Path=FullName, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                                 <DatePicker Text="{Binding Path=BirthDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                 <ComboBox ItemsSource="{StaticResource sexItems}"
-                                          SelectedItem="{Binding Path=Sex,
-                                    Mode=TwoWay,
-                                    UpdateSourceTrigger=PropertyChanged}"/>
+                                          SelectedValue="{Binding Path=Sex,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                             </StackPanel>
 
                         </DataTemplate>
