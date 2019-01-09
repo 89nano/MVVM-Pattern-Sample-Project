@@ -61,6 +61,15 @@ namespace MVVM_Pattern_Sample_Project.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to /bin/Debug/Images/.
+        /// </summary>
+        internal static string ApplicationImagesDirectory {
+            get {
+                return ResourceManager.GetString("ApplicationImagesDirectory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
         internal static byte[] patientData {

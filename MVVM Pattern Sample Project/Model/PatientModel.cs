@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using MVVM_Pattern_Sample_Project.Properties;
 
 namespace MVVM_Pattern_Sample_Project.Model
 {
@@ -40,7 +41,7 @@ namespace MVVM_Pattern_Sample_Project.Model
             set
             {
                 if (value != null && pictureName != value)
-                    pictureName = value;
+                    pictureName =Resources.ApplicationImagesDirectory + value;
             }
         }
 
@@ -50,7 +51,7 @@ namespace MVVM_Pattern_Sample_Project.Model
 
             set
             {
-                if (DateTime.TryParse(value, out birthDate) && birthDate != DateTime.Parse(value))
+                if (DateTime.TryParse(value, out birthDate) && birthDate.ToShortDateString() != value)
                 {
                     birthDate = DateTime.Parse(value);
                     CalculateAge(birthDate);
@@ -64,8 +65,9 @@ namespace MVVM_Pattern_Sample_Project.Model
         private void CalculateAge(DateTime birthDate)
         {
             var today = DateTime.UtcNow;
-            age = int.Parse((today - birthDate).ToString());
-            
+    //        age = int.Parse((today - birthDate).ToString());
+            if (!string.IsNullOrEmpty(sex) && age != 0)
+                GenerateAgeAndSexText();
         }
 
         public string Sex
@@ -73,12 +75,12 @@ namespace MVVM_Pattern_Sample_Project.Model
             get => sex;
             set
             {
-                if (sex != null && sex != value)
+                if (sex != value)
                     sex = value;
 
                 OnPropertyChanged("Sex");
 
-                if (!string.IsNullOrEmpty(sex) && age > 0)
+                if (!string.IsNullOrEmpty(sex) && age != 0)
                     GenerateAgeAndSexText();
                 
             }

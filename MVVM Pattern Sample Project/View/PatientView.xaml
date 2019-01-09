@@ -24,12 +24,24 @@
 
         </Grid.ColumnDefinitions>
 
-        <Image Grid.Column="0"
+        <ItemsControl ItemsSource="{Binding Path=PatientSummary}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Image Grid.Column="0"
                HorizontalAlignment="Left"
                Margin="10,10,0,10"
                Width="130"
-               Source="{Binding Source=PictureName}"
-               Stretch="Fill" />
+               Source="{Binding Path=PictureName,Mode=OneWay}"
+               Stretch="Fill"
+               />
+        <!--<TextBlock Grid.Row="0" Grid.Column="1"
+                   Text="{Binding Path=PictureName,Mode=TwoWay}"></TextBlock>-->
+
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+
+
+        </ItemsControl>
 
         <StackPanel Grid.Row="0"
                     Grid.Column="1">
