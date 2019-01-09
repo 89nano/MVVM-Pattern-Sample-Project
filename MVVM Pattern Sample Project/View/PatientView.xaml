@@ -28,15 +28,34 @@
                HorizontalAlignment="Left"
                Margin="10,10,0,10"
                Width="130"
-               Source="/bin/Debug/Images/StockPhoto.jpg"
-               Stretch="Fill"/>
+               Source="{Binding Source=PictureName}"
+               Stretch="Fill" />
 
         <StackPanel Grid.Row="0"
                     Grid.Column="1">
+            <ItemsControl ItemsSource="{Binding Path=PatientSummary}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
 
-            <TextBlock Text="{Binding Path=FullName}">
 
-            </TextBlock>
+                        <StackPanel HorizontalAlignment="Left">
+
+                            <TextBlock 
+                                Text="{Binding Path=FullName,
+                                Mode=TwoWay}"/>
+                            <TextBlock 
+                                Text="{Binding Path=AgeAndSexSummary,
+                                Mode=TwoWay}" />
+
+
+                        </StackPanel>
+
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+
+
+            </ItemsControl>
+
         </StackPanel>
 
         <TabControl Grid.Row="1"
@@ -45,23 +64,22 @@
                     Margin="10,0,216,20">
 
             <TabItem Header="Demographics">
-                <StackPanel HorizontalAlignment="Left">
-                    <ItemsControl ItemsSource="{Binding Path=Demographics}">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate DataType="viewModels:PatientViewModel">
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock>Full Name</TextBlock>
-                                    <!--<TextBox Text="{Binding Path=FullName, Mode=TwoWay}"
-                                        >fasd</TextBox>-->
+                <ItemsControl ItemsSource="{Binding Path=PatientSummary}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
 
-                                </StackPanel>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
+                            <StackPanel HorizontalAlignment="Left">
 
-                    </ItemsControl>
-                </StackPanel>
+                                <TextBox Text="{Binding Path=FullName, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                <DatePicker Text="{Binding Path=BirthDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                            </StackPanel>
+
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
 
 
+                </ItemsControl>
             </TabItem>
 
 

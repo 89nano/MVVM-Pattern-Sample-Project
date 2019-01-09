@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -24,6 +25,7 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
 
         public PatientViewModel()
         {
+            PatientSummary = new ObservableCollection<PatientModel>();
             Diagnostics = new ObservableCollection<string>();
             Allergies = new ObservableCollection<string>();
             LoadPatient();
@@ -37,6 +39,7 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
                 string json = r.ReadToEnd();
                 var patientList = JsonConvert.DeserializeObject<PatientModel>(json);
 
+                PatientSummary.Add(patientList);
 
                 foreach (var patientDiagnostic in patientList.Diagnostics)
                 {
@@ -48,9 +51,8 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
                     Allergies.Add(patientallergy);
                 }
 
-
-                FullName = patientList.FullName;
-                PictureName = @"/bin/Debug/Images/" + patientList.PictureName;
+                
+                //PictureName = @"/bin/Debug/Images/" + patientList.PictureName;
                 
             }
         }
