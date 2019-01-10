@@ -1,7 +1,8 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using MVVM_Pattern_Sample_Project.Properties;
 
@@ -31,7 +32,7 @@ namespace MVVM_Pattern_Sample_Project.Model
                 if (value != null && fullName != value)
                     fullName = value;
 
-                OnPropertyChanged("FullName");
+                OnPropertyChanged(nameof(FullName));
             }
         }
 
@@ -43,6 +44,8 @@ namespace MVVM_Pattern_Sample_Project.Model
             {
                 if (value != null && pictureName != value)
                     pictureName = Resources.ApplicationImagesDirectory + value;
+                OnPropertyChanged(nameof(PictureName));
+
             }
         }
 
@@ -59,7 +62,7 @@ namespace MVVM_Pattern_Sample_Project.Model
                     CalculateAge(birthDate);
                 }
 
-                OnPropertyChanged("BirthDate");
+                OnPropertyChanged(nameof(BirthDate));
 
             }
         }
@@ -103,7 +106,7 @@ namespace MVVM_Pattern_Sample_Project.Model
                 if (sex != value)
                     sex = value;
 
-                OnPropertyChanged("Sex");
+                OnPropertyChanged(nameof(Sex));
 
                 if (!string.IsNullOrEmpty(sex) && age != 0)
                     GenerateAgeAndSexText();
@@ -118,6 +121,9 @@ namespace MVVM_Pattern_Sample_Project.Model
             AgeAndSexSummary = $"{age} {yearMonthOrDay} old {sex} patient.";
         }
 
+
+       
+
         public string Notes
         {
             get => notes;
@@ -126,7 +132,7 @@ namespace MVVM_Pattern_Sample_Project.Model
                 if (notes != null && notes != value)
                     notes = value;
 
-                OnPropertyChanged("Notes");
+                OnPropertyChanged(nameof(Notes));
             }
         }
 
