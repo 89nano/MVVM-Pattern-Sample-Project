@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -138,11 +138,34 @@ namespace MVVM_Pattern_Sample_Project.Model
             {
                 if (!string.Equals(ageAndSexSummary, value, StringComparison.Ordinal))
                     ageAndSexSummary = value;
-                OnPropertyChanged("AgeAndSexSummary");
+                OnPropertyChanged(nameof(AgeAndSexSummary));
             }
 
         }
 
+        public string DiagnosticsSummary
+        {
+            get => diagnosticsSummary;
+            set
+            {
+                if (!string.Equals(diagnosticsSummary, value, StringComparison.Ordinal))
+                    diagnosticsSummary = value;
+                OnPropertyChanged(nameof(DiagnosticsSummary));
+            }
+
+        }
+
+        public string AllergiesSummary
+        {
+            get => allergiesSummary;
+            set
+            {
+                if (!string.Equals(allergiesSummary, value, StringComparison.Ordinal))
+                    allergiesSummary = value;
+                OnPropertyChanged(nameof(AllergiesSummary));
+            }
+
+        }
 
 
         public ObservableCollection<string> Diagnostics { get; set; }

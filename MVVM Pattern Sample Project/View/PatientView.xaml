@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="MVVM_Pattern_Sample_Project.View.PatientView"
+<UserControl x:Class="MVVM_Pattern_Sample_Project.View.PatientView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -60,10 +60,21 @@
 
                             <TextBlock 
                                 Text="{Binding Path=FullName,
-                                Mode=TwoWay}"/>
+                                Mode=OneWay}"
+                                Margin="5 10 0 10"/>
                             <TextBlock 
                                 Text="{Binding Path=AgeAndSexSummary,
-                                Mode=TwoWay}" />
+                                Mode=OneWay}"
+                                Margin="5 0 0 10" />
+
+                            <TextBlock Text="{Binding Path=DiagnosticsSummary,
+                                Mode=OneWay}"
+                                       Margin="5 0 0 10" />
+
+
+                            <TextBlock Text="{Binding Path=AllergiesSummary,
+                                Mode=OneWay}"
+                                       Margin="5 0 0 10" />
 
 
                         </StackPanel>

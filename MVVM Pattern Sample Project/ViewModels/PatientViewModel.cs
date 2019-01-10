@@ -18,9 +18,9 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
     {
 
         public ObservableCollection<PatientModel> PatientSummary { get; set; }
-        public ObservableCollection<string> Diagnostics { get; set; }
+        public new ObservableCollection<string> Diagnostics { get; set; }
 
-        public ObservableCollection<string> Allergies { get; set; }
+        public new ObservableCollection<string> Allergies { get; set; }
 
 
         public PatientViewModel()
@@ -29,8 +29,11 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
             Diagnostics = new ObservableCollection<string>();
             Allergies = new ObservableCollection<string>();
             LoadPatient();
+            GenerateDiagnosticsSummaryText();
+            GenerateAllergiesSummaryText();
         }
 
+        #region Methods
 
         public void LoadPatient()
         {
@@ -50,11 +53,52 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
                 {
                     Allergies.Add(patientallergy);
                 }
-
-                
             }
         }
 
+        private void GenerateDiagnosticsSummaryText()
+        {
+            if (Diagnostics.Count == 1)
+            {
+                PatientSummary.FirstOrDefault().DiagnosticsSummary =
+                    $"The patient has {Diagnostics[0]}.";
+            }
+            else if (Diagnostics.Count > 1)
+            {
+                PatientSummary.FirstOrDefault().DiagnosticsSummary =
+               $"The patient has {Diagnostics[0]} and {Diagnostics[1]}.";
+            }
+            else
+            {
+                PatientSummary.FirstOrDefault().DiagnosticsSummary =
+                    "The patient has no diagnostics.";
+            }
+
+
+        }
+
+        private void GenerateAllergiesSummaryText()
+        {
+            if (Allergies.Count == 1)
+            {
+                PatientSummary.FirstOrDefault().AllergiesSummary =
+                    $"The patient is allergic to {Allergies[0]}.";
+            }
+            else if (Allergies.Count > 1)
+            {
+                PatientSummary.FirstOrDefault().AllergiesSummary =
+                    $"The patient is allergic to {Allergies[0]} and {Allergies[1]}.";
+            }
+            else
+            {
+                PatientSummary.FirstOrDefault().AllergiesSummary =
+                    "The patient has no allergies.";
+            }
+
+
+        }
+
+        #endregion
 
     }
 
