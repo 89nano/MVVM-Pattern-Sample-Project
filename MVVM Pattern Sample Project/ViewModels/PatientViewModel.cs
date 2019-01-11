@@ -12,12 +12,28 @@ using System.Windows.Controls;
 using MVVM_Pattern_Sample_Project.Commands;
 using MVVM_Pattern_Sample_Project.Model;
 using MVVM_Pattern_Sample_Project.Properties;
+using MVVM_Pattern_Sample_Project.View;
 using Newtonsoft.Json;
 
 namespace MVVM_Pattern_Sample_Project.ViewModels
 {
-    public class PatientViewModel : INotifyPropertyChanged
+    public class PatientViewModel : INotifyPropertyChanged, IEqualityComparer<PatientModel>
     {
+
+
+        public PatientViewModel()
+        {
+            PatientSummary = new ObservableCollection<PatientModel>();
+            Diagnostics = new ObservableCollection<string>();
+            Allergies = new ObservableCollection<string>();
+            Model = new PatientModel();
+            PicturePath = Resources.ApplicationImagesDirectory;
+            LoadPatient();
+            GenerateDiagnosticsSummaryText();
+            GenerateAllergiesSummaryText();
+            _closeAndSaveCommand = new DelegateCommand(a => SaveAndClose());
+        }
+
         #region Properties
 
         private PatientModel _model;
@@ -28,6 +44,8 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
 
         private DelegateCommand _closeAndSaveCommand { get; set; }
 
+        public PatientModel DeserializedPatientModel { get; set; }
+
         private string _fullName;
         private string _sex;
         private DateTime _birthDate;
@@ -37,7 +55,7 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
         private string _ageAndSexSummary;
         private string _diagnosticsSummary;
         private string _allergiesSummary;
-
+        private string picturePath;
 
         public PatientModel Model
         {
@@ -45,7 +63,8 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
             set
             {
                 _model = value;
-                    OnPropertyChanged(nameof(Model));
+                OnPropertyChanged(nameof(Model));
+                
             }
         }
         public string AgeAndSexSummary
@@ -95,7 +114,15 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
                     _fullName = value;
 
                 OnPropertyChanged(nameof(FullName));
+                Model.FullName = _fullName;
+
             }
+        }
+
+        public string PicturePath
+        {
+            get => picturePath + pictureName;
+            set => picturePath = value;
         }
 
         public string PictureName
@@ -105,7 +132,7 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
             set
             {
                 if (value != null && pictureName != value)
-                    pictureName = Resources.ApplicationImagesDirectory + value;
+                    pictureName = value;
                 OnPropertyChanged(nameof(PictureName));
 
             }
@@ -113,7 +140,7 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
 
         public string BirthDate
         {
-            get => _birthDate.ToShortDateString();
+            get => _birthDate.ToString("yyyy-M-d");
 
             set
             {
@@ -128,37 +155,7 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
 
             }
         }
-
-        private void CalculateAge(DateTime birthDate)
-        {
-
-            var today = DateTime.UtcNow;
-            var dateDifference = today - birthDate;
-            var daysToYears = (float)(dateDifference.TotalDays / 365);
-            var daysToMonths = (float)(dateDifference.TotalDays / 30.416);
-            var yearMonthOrDay = YearMonthOrDay.Year;
-
-            if (daysToYears >= 1)
-            {
-                _age = (int)daysToYears;
-            }
-            else if (daysToMonths >= 1)
-            {
-                _age = (int)(dateDifference.TotalDays / 30.416);
-                yearMonthOrDay = YearMonthOrDay.Month;
-            }
-
-            else
-            {
-                _age = (int)dateDifference.TotalDays;
-                yearMonthOrDay = YearMonthOrDay.Day;
-            }
-
-
-            if (!string.IsNullOrEmpty(_sex) && _age != 0)
-                GenerateAgeAndSexText(yearMonthOrDay);
-        }
-
+        
         public string Sex
         {
             get => _sex;
@@ -215,42 +212,7 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
 
         #endregion
 
-
-
-        public PatientViewModel()
-        {
-            PatientSummary = new ObservableCollection<PatientModel>();
-            Diagnostics = new ObservableCollection<string>();
-            Allergies = new ObservableCollection<string>();
-            LoadPatient();
-            GenerateDiagnosticsSummaryText();
-            GenerateAllergiesSummaryText();
-            _closeAndSaveCommand = new DelegateCommand(a => CloseAndSave());
-        }
-
-        private void CloseAndSave()
-        {
-          
-               
-               
-            try
-            {
-                string output = JsonConvert.SerializeObject(PatientSummary);
-                output = output.Replace("[{", "{");
-                output = output.Replace("}]", "}");
-           
-                File.WriteAllText(Resources.ApplicationDataFileDirectory,output);
-
-            }
-            catch (JsonException e)
-            {
-                Console.WriteLine(e.Message);
-                throw;
-            }
-                
-           
-        }
-
+        
 
         #region Commands
 
@@ -265,28 +227,70 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
         {
             using (StreamReader reader = new StreamReader(Resources.ApplicationDataFileDirectory))
             {
-                string json = reader.ReadToEnd();
-                var patientList = JsonConvert.DeserializeObject<PatientModel>(json);
+                string json;
+                try
+                {
+                    json = reader.ReadToEnd();
 
-                PatientSummary.Add(patientList);
+                }
+                catch (FileNotFoundException e)
+                {
+                    Console.WriteLine(e.Message);
+                    throw;
+                }
 
-                FullName = patientList.FullName;
-                PictureName = patientList.PictureName;
-                BirthDate = patientList.BirthDate;
-                Sex = patientList.Sex;
+                var patientDeserializedData = JsonConvert.DeserializeObject<PatientModel>(json);
 
-                
-                foreach (var patientDiagnostic in patientList.Diagnostics)
+                DeserializedPatientModel = patientDeserializedData;
+
+                FullName = patientDeserializedData.FullName;
+                PictureName = patientDeserializedData.PictureName;
+                BirthDate = patientDeserializedData.BirthDate;
+                Sex = patientDeserializedData.Sex;
+                Notes = patientDeserializedData.Notes;
+
+
+                foreach (var patientDiagnostic in patientDeserializedData.Diagnostics)
                 {
                     Diagnostics.Add(patientDiagnostic);
                 }
 
-                foreach (var patientallergy in patientList.Allergies)
+                foreach (var patientallergy in patientDeserializedData.Allergies)
                 {
                     Allergies.Add(patientallergy);
                 }
 
             }
+        }
+
+         private void CalculateAge(DateTime birthDate)
+        {
+
+            var today = DateTime.UtcNow;
+            var dateDifference = today - birthDate;
+            var daysToYears = (float)(dateDifference.TotalDays / 365);
+            var daysToMonths = (float)(dateDifference.TotalDays / 30.416);
+            var yearMonthOrDay = YearMonthOrDay.Year;
+
+            if (daysToYears >= 1)
+            {
+                _age = (int)daysToYears;
+            }
+            else if (daysToMonths >= 1)
+            {
+                _age = (int)(dateDifference.TotalDays / 30.416);
+                yearMonthOrDay = YearMonthOrDay.Month;
+            }
+
+            else
+            {
+                _age = (int)dateDifference.TotalDays;
+                yearMonthOrDay = YearMonthOrDay.Day;
+            }
+
+
+            if (!string.IsNullOrEmpty(_sex) && _age != 0)
+                GenerateAgeAndSexText(yearMonthOrDay);
         }
         private void GenerateAgeAndSexText(YearMonthOrDay yearMonthOrDay = YearMonthOrDay.Year)
         {
@@ -296,13 +300,13 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
         {
             if (Diagnostics.Count == 1)
             {
-              DiagnosticsSummary =
-                    $"The patient has {Diagnostics[0]}.";
+                DiagnosticsSummary =
+                      $"The patient has {Diagnostics[0]}.";
             }
             else if (Diagnostics.Count > 1)
             {
-               DiagnosticsSummary =
-               $"The patient has {Diagnostics[0]} and {Diagnostics[1]}.";
+                DiagnosticsSummary =
+                $"The patient has {Diagnostics[0]} and {Diagnostics[1]}.";
             }
             else
             {
@@ -317,8 +321,8 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
         {
             if (Allergies.Count == 1)
             {
-               AllergiesSummary =
-                    $"The patient is allergic to {Allergies[0]}.";
+                AllergiesSummary =
+                     $"The patient is allergic to {Allergies[0]}.";
             }
             else if (Allergies.Count > 1)
             {
@@ -334,8 +338,90 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
 
         }
 
+        private void SaveAndClose()
+        {
+            UpdateModel();
+
+            if (Equals(Model,DeserializedPatientModel))
+            {
+                Application.Current.Shutdown();
+
+            }
+            else
+            {
+               
+                var updatePatient = MessageBox.Show("Do you want to update changes made to this patient?",
+                    "Attention", MessageBoxButton.YesNoCancel, MessageBoxImage.Exclamation);
+                if (updatePatient == MessageBoxResult.Yes)
+                {
+                    try
+                    {
+                        var output = JsonConvert.SerializeObject(Model);
+                        output = output.Replace("[{", "{");
+                        output = output.Replace("}]", "}");
+
+                        File.WriteAllText(Resources.ApplicationDataFileDirectory, output);
+
+                        Application.Current.Shutdown();
+
+                    }
+                    catch (JsonException e)
+                    {
+                        Console.WriteLine(e.Message);
+                        throw;
+                    }
+
+                }
+                else
+                {
+                    Application.Current.Shutdown();
+
+                }
+            }
+
+
+
+        }
+
+        private void UpdateModel()
+        {
+            Model.FullName = FullName;
+            Model.BirthDate = BirthDate;
+            Model.Sex = Sex;
+            Model.PictureName = PictureName;
+            Model.Notes = Notes ?? "";
+            Model.Diagnostics = Diagnostics;
+            Model.Allergies = Allergies;
+
+        }
+
         #endregion
-      
+
+        public bool Equals(PatientModel workingModel, PatientModel deserializedPatientModel)
+        {
+            if (workingModel == null && deserializedPatientModel == null)
+                return true;
+            if (workingModel == null || deserializedPatientModel == null)
+                return false;
+
+            if (workingModel.FullName == deserializedPatientModel.FullName
+                && workingModel.PictureName == deserializedPatientModel.PictureName
+                && workingModel.BirthDate == deserializedPatientModel.BirthDate
+                && workingModel.Sex == deserializedPatientModel.Sex
+                && workingModel.Notes == deserializedPatientModel.Notes
+                && workingModel.Diagnostics.SequenceEqual(deserializedPatientModel.Diagnostics)
+                && workingModel.Allergies.SequenceEqual(deserializedPatientModel.Allergies))
+                return true;
+
+            return false;
+
+
+        }
+
+        public int GetHashCode(PatientModel obj)
+        {
+            throw new NotImplementedException();
+        }
     }
 
 

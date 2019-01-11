@@ -37,7 +37,7 @@
       
                     <Image Grid.Column="0"
                HorizontalAlignment="Center"
-               Source="{Binding Path=PictureName,Mode=OneWay}"
+               Source="{Binding Path=PicturePath,Mode=OneWay}"
                Stretch="Fill"
                Width="200"/>
             
@@ -238,7 +238,7 @@
                 Height="20"
                 FontSize="14"
                 BorderThickness="0 0 2 2"
-                Command="{Binding Path=CloseAndSaveChangesCommand}">Close</Button>
+                Command="{Binding Path=CloseAndSaveChangesCommand}">Save and Close</Button>
 
     </Grid>
 

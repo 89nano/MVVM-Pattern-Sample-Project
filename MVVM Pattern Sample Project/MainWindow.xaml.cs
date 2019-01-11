@@ -24,5 +24,7 @@ namespace MVVM_Pattern_Sample_Project
         {
             InitializeComponent();
         }
+
+        
     }
 }

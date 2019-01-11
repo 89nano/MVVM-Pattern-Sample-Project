@@ -24,8 +24,6 @@ namespace MVVM_Pattern_Sample_Project.Model
         
         public ObservableCollection<string> Allergies { get; set; }
 
+        
     }
-
-
-
 }
