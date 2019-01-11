@@ -35,11 +35,11 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
             _closeAndSaveCommand = new DelegateCommand(a => SaveAndClose());
             _addDiagnosticsCommand = new DelegateCommand(b => AddDiagnostics());
             DiagnosticsAddButtonName = "Add";
-            CommaDelimitedDiagnostics = "";
+            CommaDelimitedDiagnostics = string.Empty;
 
         }
 
-       
+
 
         #region Properties
 
@@ -68,6 +68,7 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
         private DelegateCommand _addDiagnosticsCommand;
         private string _diagnosticsAddButtonName;
         private string _commaDelimitedDiagnostics;
+        private int _diagnosticsListIndex;
 
 
         public PatientModel Model
@@ -77,7 +78,7 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
             {
                 _model = value;
                 OnPropertyChanged(nameof(Model));
-                
+
             }
         }
 
@@ -99,6 +100,16 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
             {
                 _myVisibility = value;
                 OnPropertyChanged(nameof(MyVisibility));
+            }
+        }
+
+        public int DiagnosticsListIndex
+        {
+            get => _diagnosticsListIndex;
+            set
+            {
+                _diagnosticsListIndex = value;
+                    OnPropertyChanged(nameof(DiagnosticsListIndex));
             }
         }
 
@@ -190,7 +201,7 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
 
             }
         }
-        
+
         public string Sex
         {
             get => _sex;
@@ -396,17 +407,28 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
 
                 foreach (var diagnostic in splittedDiagnostics)
                 {
-                    Diagnostics.Add(diagnostic);
+                    if (!Diagnostics.Contains(diagnostic) && !string.IsNullOrEmpty(diagnostic))
+                    {
+                        Diagnostics.Add(diagnostic);
+                        DiagnosticsListIndex = Diagnostics.Count - 1;
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("Diagnostic is already in the list");
+                    }
+                  
                 }
 
+                CommaDelimitedDiagnostics = string.Empty;
 
             }
-                
+
 
 
         }
 
-        
+
 
 
         private void SaveAndClose()
@@ -414,14 +436,14 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
             UpdateModel();//Update working model
 
             //Compare models using IEqualityComparer Implementation
-            if (Equals(Model,DeserializedPatientModel))
+            if (Equals(Model, DeserializedPatientModel))
             {
                 Application.Current.Shutdown();
 
             }
             else
             {
-               
+
                 var updatePatient = MessageBox.Show("Do you want to update changes made to this patient?",
                     "Attention", MessageBoxButton.YesNoCancel, MessageBoxImage.Exclamation);
                 if (updatePatient == MessageBoxResult.Yes)
@@ -450,8 +472,6 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
 
                 }
             }
-
-
 
         }
 

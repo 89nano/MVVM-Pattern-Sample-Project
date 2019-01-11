@@ -1,4 +1,4 @@
-<UserControl x:Class="MVVM_Pattern_Sample_Project.View.PatientView"
+﻿<UserControl x:Class="MVVM_Pattern_Sample_Project.View.PatientView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -168,7 +168,10 @@
                              FontSize="16"
                              ScrollViewer.VerticalScrollBarVisibility="Auto"
                              HorizontalAlignment="Left"
-                             ItemsSource="{Binding Path=Diagnostics}"></ListBox>
+                             ItemsSource="{Binding Path=Diagnostics, Mode=OneWay}"
+                             SelectedIndex="{Binding Path=DiagnosticsListIndex,Mode=OneWay}"
+                             
+                             ></ListBox>
 
                     <StackPanel Grid.Row="1"
                                 Orientation="Horizontal"
@@ -183,13 +186,13 @@
                                FontSize="11"
                                Visibility="{Binding Path=MyVisibility,Mode=OneWay}"/>
                         
-                        <TextBox Text="{Binding Path=CommaDelimitedDiagnostics, Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
+                        <TextBox Text="{Binding Path=CommaDelimitedDiagnostics, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                                  Width="150"
                                  Height="20"
                                  Margin="5 0 0 2"
                                  FontSize="14"
                                  ToolTip="Enter Diagnostics separated by commas(Ex: Diabetes, Migrane)"
-                                 Visibility="{Binding Path= MyVisibility, Mode=OneWay}"
+                                 Visibility="{Binding Path= MyVisibility, Mode=TwoWay}"
                                  />
 
                         <Button Margin="25 0 0 2"
@@ -231,13 +234,32 @@
 
                     <StackPanel Grid.Row="1"
                                 Orientation="Horizontal"
-                                HorizontalAlignment="Right"
-                                Width="145">
-                        <Button Margin="0 0 0 2"
-                                Height="20"
+                                HorizontalAlignment="Center"
+                                Width="AUTO">
+
+                        <Label Content="Enter New Allergies:"
+                               Height="20"
+                               Name="newAllergiesLabel"
+                               Margin="-12 0 0 10"
+                               VerticalAlignment="Center"
+                               FontSize="11" />
+
+                        <TextBox Text="{Binding Path=CommaDelimitedAllergies, Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
+                                 Width="150"
+                                 Height="20"
+                                 Margin="5 0 0 2"
+                                 FontSize="14"
+                                 ToolTip="Enter Diagnostics separated by commas(Ex: Diabetes, Migrane)"
+                                 Visibility="{Binding Path= MyVisibility, Mode=OneWay}" />
+
+                        <Button Margin="25 0 0 2"
                                 Width="60"
+                                Height="20"
+                                FontSize="14"
                                 BorderThickness="0 0 2 2"
-                                FontSize="14">Add</Button>
+                                Content="{Binding Path=AllergiesAddButtonName}"
+                                Command="{Binding Path=AddAllergiesCommand}" />
+                        
                         <Button Margin="10 0 0 2"
                                 Height="20"
                                 Width="60"
