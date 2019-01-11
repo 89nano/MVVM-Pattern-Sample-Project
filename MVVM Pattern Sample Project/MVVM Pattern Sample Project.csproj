@@ -59,7 +59,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ViewModels\DemographicsViewModel.cs" />
+    <Compile Include="Commands\DelegateCommand.cs" />
     <Compile Include="ViewModels\PatientViewModel.cs" />
     <Compile Include="View\PatientView.xaml.cs">
       <DependentUpon>PatientView.xaml</DependentUpon>
