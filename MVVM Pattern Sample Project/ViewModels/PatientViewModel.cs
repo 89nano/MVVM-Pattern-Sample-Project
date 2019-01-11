@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -28,11 +28,18 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
             Allergies = new ObservableCollection<string>();
             Model = new PatientModel();
             PicturePath = Resources.ApplicationImagesDirectory;
+            MyVisibility = Visibility.Hidden;
             LoadPatient();
             GenerateDiagnosticsSummaryText();
             GenerateAllergiesSummaryText();
             _closeAndSaveCommand = new DelegateCommand(a => SaveAndClose());
+            _addDiagnosticsCommand = new DelegateCommand(b => AddDiagnostics());
+            DiagnosticsAddButtonName = "Add";
+            CommaDelimitedDiagnostics = "";
+
         }
+
+       
 
         #region Properties
 
@@ -42,20 +49,26 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
 
         public ObservableCollection<string> Allergies { get; set; }
 
-        private DelegateCommand _closeAndSaveCommand { get; set; }
 
         public PatientModel DeserializedPatientModel { get; set; }
+
 
         private string _fullName;
         private string _sex;
         private DateTime _birthDate;
         private int _age;
         private string _notes;
-        private string pictureName;
+        private string _pictureName;
         private string _ageAndSexSummary;
         private string _diagnosticsSummary;
         private string _allergiesSummary;
-        private string picturePath;
+        private string _picturePath;
+        private Visibility _myVisibility;
+        private DelegateCommand _closeAndSaveCommand;
+        private DelegateCommand _addDiagnosticsCommand;
+        private string _diagnosticsAddButtonName;
+        private string _commaDelimitedDiagnostics;
+
 
         public PatientModel Model
         {
@@ -67,6 +80,28 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
                 
             }
         }
+
+
+        public string CommaDelimitedDiagnostics
+        {
+            get => _commaDelimitedDiagnostics;
+            set
+            {
+                _commaDelimitedDiagnostics = value;
+                OnPropertyChanged(nameof(CommaDelimitedDiagnostics));
+            }
+        }
+
+        public Visibility MyVisibility
+        {
+            get => _myVisibility;
+            set
+            {
+                _myVisibility = value;
+                OnPropertyChanged(nameof(MyVisibility));
+            }
+        }
+
         public string AgeAndSexSummary
         {
             get => _ageAndSexSummary;
@@ -121,18 +156,18 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
 
         public string PicturePath
         {
-            get => picturePath + pictureName;
-            set => picturePath = value;
+            get => _picturePath + _pictureName;
+            set => _picturePath = value;
         }
 
         public string PictureName
         {
-            get => pictureName;
+            get => _pictureName;
 
             set
             {
-                if (value != null && pictureName != value)
-                    pictureName = value;
+                if (value != null && _pictureName != value)
+                    _pictureName = value;
                 OnPropertyChanged(nameof(PictureName));
 
             }
@@ -172,7 +207,15 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
             }
         }
 
-
+        public string DiagnosticsAddButtonName
+        {
+            get => _diagnosticsAddButtonName;
+            set
+            {
+                _diagnosticsAddButtonName = value;
+                OnPropertyChanged();
+            }
+        }
 
 
 
@@ -191,7 +234,12 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
             }
         }
 
+        #region Commands
 
+        public DelegateCommand SaveChangesAndCloseCommand => _closeAndSaveCommand;
+        public DelegateCommand AddDiagnosticsCommand => _addDiagnosticsCommand;
+
+        #endregion
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -212,13 +260,6 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
 
         #endregion
 
-        
-
-        #region Commands
-
-        public DelegateCommand CloseAndSaveChangesCommand => _closeAndSaveCommand;
-
-        #endregion
 
 
         #region Methods
@@ -263,7 +304,7 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
             }
         }
 
-         private void CalculateAge(DateTime birthDate)
+        private void CalculateAge(DateTime birthDate)
         {
 
             var today = DateTime.UtcNow;
@@ -338,10 +379,41 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
 
         }
 
+
+        private void AddDiagnostics()
+        {
+            if (MyVisibility == Visibility.Hidden)
+            {
+                MyVisibility = Visibility.Visible;
+                DiagnosticsAddButtonName = "Done";
+            }
+            else
+            {
+                MyVisibility = Visibility.Hidden;
+                DiagnosticsAddButtonName = "Add";
+
+                var splittedDiagnostics = CommaDelimitedDiagnostics.Split(',');
+
+                foreach (var diagnostic in splittedDiagnostics)
+                {
+                    Diagnostics.Add(diagnostic);
+                }
+
+
+            }
+                
+
+
+        }
+
+        
+
+
         private void SaveAndClose()
         {
-            UpdateModel();
+            UpdateModel();//Update working model
 
+            //Compare models using IEqualityComparer Implementation
             if (Equals(Model,DeserializedPatientModel))
             {
                 Application.Current.Shutdown();
