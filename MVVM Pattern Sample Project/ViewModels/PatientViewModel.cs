@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -184,7 +184,7 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
             get => _notes;
             set
             {
-                if (_notes != null && _notes != value)
+                if (value != null && _notes != value)
                     _notes = value;
 
                 OnPropertyChanged(nameof(Notes));
