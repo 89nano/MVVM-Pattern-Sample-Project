@@ -34,25 +34,17 @@
 
         </Grid.ColumnDefinitions>
 
-        <ItemsControl ItemsSource="{Binding Path=PatientSummary}">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
+      
                     <Image Grid.Column="0"
                HorizontalAlignment="Center"
                Source="{Binding Path=PictureName,Mode=OneWay}"
                Stretch="Fill"
                Width="200"/>
-                    
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-
-        </ItemsControl>
+            
 
         <StackPanel Grid.Row="0"
                     Grid.Column="1">
-            <ItemsControl ItemsSource="{Binding Path=PatientSummary}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
+        
 
                         <StackPanel HorizontalAlignment="Left">
 
@@ -81,11 +73,6 @@
 
                         </StackPanel>
 
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-
-
-            </ItemsControl>
 
         </StackPanel>
 
@@ -99,9 +86,6 @@
 
             <TabItem Header="Demographics"
                      FontSize="14">
-                <ItemsControl ItemsSource="{Binding Path=PatientSummary}">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
                             <Grid ShowGridLines="False">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="*" />
@@ -158,7 +142,7 @@
                                               Width="AUTO"
                                               Margin="0 0 0 20"
                                               FontSize="16"/>
-                                    <TextBox Text="{Binding Path=Notes, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                                    <TextBox Text="{Binding Path=Notes, Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
                                              Width="300"
                                              Height="60"
                                              Margin="0 0 0 10"
@@ -166,11 +150,7 @@
 
                                 </StackPanel>
                             </Grid>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-
-
-                </ItemsControl>
+                      
             </TabItem>
 
 
@@ -257,7 +237,8 @@
                 Width="90"
                 Height="20"
                 FontSize="14"
-                BorderThickness="0 0 2 2">Close</Button>
+                BorderThickness="0 0 2 2"
+                Command="{Binding Path=CloseAndSaveChangesCommand}">Close</Button>
 
     </Grid>
 

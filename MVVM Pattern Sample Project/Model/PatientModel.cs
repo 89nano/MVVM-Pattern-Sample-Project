@@ -1,198 +1,29 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
 using MVVM_Pattern_Sample_Project.Properties;
 
 namespace MVVM_Pattern_Sample_Project.Model
 {
 
-    public class PatientModel : INotifyPropertyChanged
+    public class PatientModel
     {
+        public string FullName { get; set; }
 
-        private string fullName;
-        private string sex;
-        private DateTime birthDate;
-        private int age;
-        private string notes;
-        private string pictureName;
-        private string ageAndSexSummary;
-        private string diagnosticsSummary;
-        private string allergiesSummary;
+        public string PictureName { get; set; }
+
+        public string BirthDate { get; set; }
+
+        public string Sex { get; set; }
 
 
-        public string FullName
-        {
-            get => fullName;
-
-            set
-            {
-                if (value != null && fullName != value)
-                    fullName = value;
-
-                OnPropertyChanged(nameof(FullName));
-            }
-        }
-
-        public string PictureName
-        {
-            get { return pictureName; }
-
-            set
-            {
-                if (value != null && pictureName != value)
-                    pictureName = Resources.ApplicationImagesDirectory + value;
-                OnPropertyChanged(nameof(PictureName));
-
-            }
-        }
-
-        public string BirthDate
-        {
-            get => birthDate.ToShortDateString();
-
-            set
-            {
-
-                if (DateTime.TryParse(value, out birthDate))
-                {
-                    birthDate = DateTime.Parse(value);
-                    CalculateAge(birthDate);
-                }
-
-                OnPropertyChanged(nameof(BirthDate));
-
-            }
-        }
-
-        private void CalculateAge(DateTime birthDate)
-        {
-
-            var today = DateTime.UtcNow;
-            var dateDifference = today - birthDate;
-            var daysToYears = (float)(dateDifference.TotalDays / 365);
-            var daysToMonths = (float)(dateDifference.TotalDays / 30.416);
-            var yearMonthOrDay = YearMonthOrDay.Year;
-
-            if (daysToYears >= 1)
-            {
-                age = (int)daysToYears;
-            }
-            else if (daysToMonths >= 1)
-            {
-                age = (int)(dateDifference.TotalDays / 30.416);
-                yearMonthOrDay = YearMonthOrDay.Month;
-            }
-
-            else
-            {
-
-                age = (int)dateDifference.TotalDays;
-                yearMonthOrDay = YearMonthOrDay.Day;
-            }
-
-
-            if (!string.IsNullOrEmpty(sex) && age != 0)
-                GenerateAgeAndSexText(yearMonthOrDay);
-        }
-
-        public string Sex
-        {
-            get => sex;
-            set
-            {
-                if (sex != value)
-                    sex = value;
-
-                OnPropertyChanged(nameof(Sex));
-
-                if (!string.IsNullOrEmpty(sex) && age != 0)
-                    GenerateAgeAndSexText();
-
-            }
-        }
-
-
-
-        private void GenerateAgeAndSexText(YearMonthOrDay yearMonthOrDay = YearMonthOrDay.Year)
-        {
-            AgeAndSexSummary = $"{age} {yearMonthOrDay} old {sex} patient.";
-        }
-
-
-       
-
-        public string Notes
-        {
-            get => notes;
-            set
-            {
-                if (notes != null && notes != value)
-                    notes = value;
-
-                OnPropertyChanged(nameof(Notes));
-            }
-        }
-
-
-        public string AgeAndSexSummary
-        {
-            get => ageAndSexSummary;
-            set
-            {
-                if (!string.Equals(ageAndSexSummary, value, StringComparison.Ordinal))
-                    ageAndSexSummary = value;
-                OnPropertyChanged(nameof(AgeAndSexSummary));
-            }
-
-        }
-
-        public string DiagnosticsSummary
-        {
-            get => diagnosticsSummary;
-            set
-            {
-                if (!string.Equals(diagnosticsSummary, value, StringComparison.Ordinal))
-                    diagnosticsSummary = value;
-                OnPropertyChanged(nameof(DiagnosticsSummary));
-            }
-
-        }
-
-        public string AllergiesSummary
-        {
-            get => allergiesSummary;
-            set
-            {
-                if (!string.Equals(allergiesSummary, value, StringComparison.Ordinal))
-                    allergiesSummary = value;
-                OnPropertyChanged(nameof(AllergiesSummary));
-            }
-
-        }
-
+        public string Notes { get; set; }
 
         public ObservableCollection<string> Diagnostics { get; set; }
+        
         public ObservableCollection<string> Allergies { get; set; }
 
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-
-        enum YearMonthOrDay
-        {
-            Year,
-            Month,
-            Day
-        }
-        
     }
 
 

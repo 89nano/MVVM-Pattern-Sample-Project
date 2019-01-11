@@ -127,4 +127,7 @@
   <data name="ApplicationImagesDirectory" xml:space="preserve">
     <value>/bin/Debug/Images/</value>
   </data>
+  <data name="ApplicationDataFileDirectory" xml:space="preserve">
+    <value>Data/patientData.json</value>
+  </data>
 </root>

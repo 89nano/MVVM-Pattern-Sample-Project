@@ -61,6 +61,15 @@ namespace MVVM_Pattern_Sample_Project.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Data/patientData.json.
+        /// </summary>
+        internal static string ApplicationDataFileDirectory {
+            get {
+                return ResourceManager.GetString("ApplicationDataFileDirectory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to /bin/Debug/Images/.
         /// </summary>
         internal static string ApplicationImagesDirectory {
