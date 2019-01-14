@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:local="clr-namespace:MVVM_Pattern_Sample_Project.View"
              xmlns:model="clr-namespace:MVVM_Pattern_Sample_Project.Model"
              xmlns:mvvmPatternSampleProject="clr-namespace:MVVM_Pattern_Sample_Project"
@@ -34,13 +35,19 @@
 
         </Grid.ColumnDefinitions>
 
-      
-                    <Image Grid.Column="0"
+
+        <Image Grid.Column="0"
                HorizontalAlignment="Center"
-               Source="{Binding Path=PicturePath,Mode=OneWay}"
+               Source="{Binding Path=PicturePath,Mode=TwoWay}"
                Stretch="Fill"
-               Width="200"/>
-            
+               Width="200">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseLeftButtonDown">
+                    <i:InvokeCommandAction Command="{Binding Path=OpenExplorerToChangePictureCommand}"></i:InvokeCommandAction>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </Image>
+
 
         <StackPanel Grid.Row="0"
                     Grid.Column="1">

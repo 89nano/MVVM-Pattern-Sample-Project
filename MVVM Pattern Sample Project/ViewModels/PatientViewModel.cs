@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using Microsoft.Win32;
 using MVVM_Pattern_Sample_Project.Commands;
 using MVVM_Pattern_Sample_Project.Model;
-using MVVM_Pattern_Sample_Project.Properties;
 using MVVM_Pattern_Sample_Project.Repositories;
 using MVVM_Pattern_Sample_Project.Services;
 using Newtonsoft.Json;
@@ -26,7 +27,7 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
             Diagnostics = new ObservableCollection<string>();
             Allergies = new ObservableCollection<string>();
             Model = new PatientModel();
-            PicturePath = Resources.ApplicationImagesDirectory;
+            PicturePath = Path.GetFullPath(Environment.CurrentDirectory + "/Images");
             MyVisibility = Visibility.Hidden;
             LoadPatient();
             GenerateDiagnosticsSummaryText();
@@ -35,14 +36,62 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
             _addDiagnosticsCommand = new DelegateCommand(b => AddDiagnostics());
             _removeDiagnosticsCommand = new DelegateCommand(c => RemoveDiagnostics());
             _addAllergiesCommand = new DelegateCommand(d => AddAllergies());
-            _removeAllergiesCommand = new DelegateCommand(c => RemoveAllergies());
-
+            _removeAllergiesCommand = new DelegateCommand(e => RemoveAllergies());
+            _openExplorerToChangePictureCommand = new DelegateCommand(f => OpenExplorerToChangePicture());
             DiagnosticsAddButtonName = "Add";
             AllergiesAddButtonName = "Add";
             CommaDelimitedDiagnostics = string.Empty;
 
         }
 
+        private void OpenExplorerToChangePicture()
+        {
+            var appImagesPath = Environment.CurrentDirectory + @"\Images";
+
+            // Displays an OpenFileDialog so the user can select an image.  
+            OpenFileDialog imagesOpenFileDialog = new OpenFileDialog();
+            imagesOpenFileDialog.Filter = "Image files (*.png;*.jpeg;*.jpg)|*.png;*.jpeg;*.jpg|All files (*.*)|*.*";
+            imagesOpenFileDialog.Title = "Select an Image";
+            imagesOpenFileDialog.Multiselect = false;
+            imagesOpenFileDialog.InitialDirectory =
+                Path.GetFullPath(appImagesPath);
+
+            var result = imagesOpenFileDialog.ShowDialog();
+            var selectedImagePath = string.Empty;
+            var retrievedPathWithFileName = string.Empty;
+            var imageName = PictureName;
+
+            if (result.HasValue && result.Value)
+            {
+                //path includes name
+                retrievedPathWithFileName = imagesOpenFileDialog.FileName;
+                //gets path only
+                selectedImagePath = retrievedPathWithFileName.Substring(0, retrievedPathWithFileName
+                    .LastIndexOf(("\\"), StringComparison.Ordinal))
+                    ;
+                //get image name from path
+                imageName = retrievedPathWithFileName.Substring(retrievedPathWithFileName
+                    .LastIndexOf("\\", StringComparison.Ordinal) + 1);
+            }
+
+            //If selected and image outside of the app's image directory, copy that image
+            //to the app's image directory
+            if (selectedImagePath != Environment.CurrentDirectory + "images")
+            {
+                if (!string.IsNullOrEmpty(retrievedPathWithFileName))
+                {
+                    try
+                    {
+                        File.Copy(retrievedPathWithFileName, appImagesPath + "\\" + imageName);
+                        PictureName = imageName;
+                    }
+                    catch (IOException e)
+                    {
+                        PictureName = imageName;
+                    }
+                }
+            }
+        }
 
 
         #region Properties
@@ -75,6 +124,7 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
         private DelegateCommand _removeDiagnosticsCommand;
         private DelegateCommand _removeAllergiesCommand;
         private DelegateCommand _addAllergiesCommand;
+        private DelegateCommand _openExplorerToChangePictureCommand;
 
         private string _diagnosticsAddButtonName;
         private string _allergiesAddButtonName;
@@ -203,7 +253,7 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
 
         public string PicturePath
         {
-            get => _picturePath + _pictureName;
+            get => _picturePath + "/" + _pictureName;
             set => _picturePath = value;
         }
 
@@ -215,7 +265,7 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
             {
                 if (value != null && _pictureName != value)
                     _pictureName = value;
-                OnPropertyChanged(nameof(PictureName));
+                OnPropertyChanged(nameof(PicturePath));
 
             }
         }
@@ -293,6 +343,7 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
         public DelegateCommand AddAllergiesCommand => _addAllergiesCommand;
         public DelegateCommand RemoveDiagnosticsCommand => _removeDiagnosticsCommand;
         public DelegateCommand RemoveAllergiesCommand => _removeAllergiesCommand;
+        public DelegateCommand OpenExplorerToChangePictureCommand => _openExplorerToChangePictureCommand;
 
 
         #endregion
@@ -320,29 +371,29 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
 
         public void LoadPatient()
         {
-           
-                string json = _patientDataRepository.ReadJsonFile();
 
-                var patientDeserializedData = JsonConvert.DeserializeObject<PatientModel>(json);
+            string json = _patientDataRepository.ReadJsonFile();
 
-                DeserializedPatientModel = patientDeserializedData;
+            var patientDeserializedData = JsonConvert.DeserializeObject<PatientModel>(json);
 
-                FullName = patientDeserializedData.FullName;
-                PictureName = patientDeserializedData.PictureName;
-                BirthDate = patientDeserializedData.BirthDate;
-                Sex = patientDeserializedData.Sex;
-                Notes = patientDeserializedData.Notes;
+            DeserializedPatientModel = patientDeserializedData;
+
+            FullName = patientDeserializedData.FullName;
+            PictureName = patientDeserializedData.PictureName;
+            BirthDate = patientDeserializedData.BirthDate;
+            Sex = patientDeserializedData.Sex;
+            Notes = patientDeserializedData.Notes;
 
 
-                foreach (var patientDiagnostic in patientDeserializedData.Diagnostics)
-                {
-                    Diagnostics.Add(patientDiagnostic);
-                }
+            foreach (var patientDiagnostic in patientDeserializedData.Diagnostics)
+            {
+                Diagnostics.Add(patientDiagnostic);
+            }
 
-                foreach (var patientallergy in patientDeserializedData.Allergies)
-                {
-                    Allergies.Add(patientallergy);
-                }
+            foreach (var patientallergy in patientDeserializedData.Allergies)
+            {
+                Allergies.Add(patientallergy);
+            }
 
             DiagnosticsListBoxSelectedIndex = 0;
 
@@ -376,6 +427,7 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
 
             if (!string.IsNullOrEmpty(_sex) && _age != 0)
                 GenerateAgeAndSexText(yearMonthOrDay);
+
         }
         private void GenerateAgeAndSexText(YearMonthOrDay yearMonthOrDay = YearMonthOrDay.Year)
         {
@@ -437,13 +489,13 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
                 DiagnosticsAddButtonName = "Add";
 
                 Diagnostics =
-                    _collectionsManagerService.AddDelimitedValuesToCollection(CommaDelimitedDiagnostics, ',',Diagnostics);
-                
+                    _collectionsManagerService.AddDelimitedValuesToCollection(CommaDelimitedDiagnostics, ',', Diagnostics);
+
                 CommaDelimitedDiagnostics = string.Empty;
 
             }
 
-            if (Diagnostics.Count <=2)
+            if (Diagnostics.Count <= 2)
             {
                 GenerateDiagnosticsSummaryText();
             }
@@ -463,14 +515,14 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
                 MyVisibility = Visibility.Hidden;
                 DiagnosticsAddButtonName = "Add";
 
-               Allergies =
-                    _collectionsManagerService.AddDelimitedValuesToCollection(CommaDelimitedAllergies, ',', Allergies);
+                Allergies =
+                     _collectionsManagerService.AddDelimitedValuesToCollection(CommaDelimitedAllergies, ',', Allergies);
 
                 CommaDelimitedAllergies = string.Empty;
 
             }
 
-            if(Allergies.Count <= 2) 
+            if (Allergies.Count <= 2)
                 GenerateAllergiesSummaryText();
         }
 
@@ -480,25 +532,25 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
             Diagnostics = _collectionsManagerService
                 .RemoveFromCollection(DiagnosticsListBoxSelectedIndex, Diagnostics);
 
-            if (Diagnostics.Count <=2)
+            if (Diagnostics.Count <= 2)
                 GenerateDiagnosticsSummaryText();
-            
+
 
         }
 
         private void RemoveAllergies()
         {
 
-           Allergies = _collectionsManagerService
-                .RemoveFromCollection(AllergiesListBoxSelectedIndex, Allergies);
+            Allergies = _collectionsManagerService
+                 .RemoveFromCollection(AllergiesListBoxSelectedIndex, Allergies);
 
-            if(Allergies.Count <=2)
+            if (Allergies.Count <= 2)
                 GenerateAllergiesSummaryText();
 
 
         }
 
-     
+
 
         private void SaveAndClose()
         {
@@ -519,7 +571,7 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
                 {
                     try
                     {
-                        
+
                         _patientDataRepository.WriteToJsonFile(Model);
 
                         Application.Current.Shutdown();
