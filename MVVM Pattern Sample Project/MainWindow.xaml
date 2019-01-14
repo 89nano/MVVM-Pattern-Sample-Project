@@ -7,7 +7,7 @@
         xmlns:views="clr-namespace:MVVM_Pattern_Sample_Project.View"
         mc:Ignorable="d"
         Title="Mini-NeoMed" Height="AUTO" Width="AUTO"
-        MaxHeight="500" MaxWidth="500"
+        MaxHeight="500" MaxWidth="525"
         >
     <Grid>
         <views:PatientView x:Name="PatientViewControl"/>
