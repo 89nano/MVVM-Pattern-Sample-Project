@@ -2,17 +2,14 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using MVVM_Pattern_Sample_Project.Commands;
 using MVVM_Pattern_Sample_Project.Model;
 using MVVM_Pattern_Sample_Project.Properties;
-using MVVM_Pattern_Sample_Project.View;
+using MVVM_Pattern_Sample_Project.Repositories;
+using MVVM_Pattern_Sample_Project.Services;
 using Newtonsoft.Json;
 
 namespace MVVM_Pattern_Sample_Project.ViewModels
@@ -23,6 +20,8 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
 
         public PatientViewModel()
         {
+            _collectionsManagerService = new CollectionsManagerService();
+            _patientDataRepository = new PatientDataRepository();
             PatientSummary = new ObservableCollection<PatientModel>();
             Diagnostics = new ObservableCollection<string>();
             Allergies = new ObservableCollection<string>();
@@ -34,6 +33,7 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
             GenerateAllergiesSummaryText();
             _closeAndSaveCommand = new DelegateCommand(a => SaveAndClose());
             _addDiagnosticsCommand = new DelegateCommand(b => AddDiagnostics());
+            _removeDiagnosticCommand = new DelegateCommand(c => RemoveDiagnostics());
             DiagnosticsAddButtonName = "Add";
             CommaDelimitedDiagnostics = string.Empty;
 
@@ -42,6 +42,8 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
 
 
         #region Properties
+
+        private PatientDataRepository _patientDataRepository { get; }
 
         private PatientModel _model;
         public ObservableCollection<PatientModel> PatientSummary { get; set; }
@@ -66,10 +68,11 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
         private Visibility _myVisibility;
         private DelegateCommand _closeAndSaveCommand;
         private DelegateCommand _addDiagnosticsCommand;
+        private DelegateCommand _removeDiagnosticCommand;
         private string _diagnosticsAddButtonName;
         private string _commaDelimitedDiagnostics;
-        private int _diagnosticsListIndex;
-
+        private int _diagnosticsListBoxSelectedIndex;
+        private readonly CollectionsManagerService _collectionsManagerService;
 
         public PatientModel Model
         {
@@ -103,15 +106,17 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
             }
         }
 
-        public int DiagnosticsListIndex
+        public int DiagnosticsListBoxSelectedIndex
         {
-            get => _diagnosticsListIndex;
+            get => _diagnosticsListBoxSelectedIndex;
             set
             {
-                _diagnosticsListIndex = value;
-                    OnPropertyChanged(nameof(DiagnosticsListIndex));
+                _diagnosticsListBoxSelectedIndex = value;
+                OnPropertyChanged(nameof(DiagnosticsListBoxSelectedIndex));
             }
         }
+
+        
 
         public string AgeAndSexSummary
         {
@@ -249,8 +254,11 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
 
         public DelegateCommand SaveChangesAndCloseCommand => _closeAndSaveCommand;
         public DelegateCommand AddDiagnosticsCommand => _addDiagnosticsCommand;
+        public DelegateCommand RemoveDiagnosticCommand => _removeDiagnosticCommand;
+
 
         #endregion
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -266,9 +274,6 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
             Day
         }
 
-
-
-
         #endregion
 
 
@@ -277,19 +282,8 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
 
         public void LoadPatient()
         {
-            using (StreamReader reader = new StreamReader(Resources.ApplicationDataFileDirectory))
-            {
-                string json;
-                try
-                {
-                    json = reader.ReadToEnd();
-
-                }
-                catch (FileNotFoundException e)
-                {
-                    Console.WriteLine(e.Message);
-                    throw;
-                }
+           
+                string json = _patientDataRepository.ReadJsonFile();
 
                 var patientDeserializedData = JsonConvert.DeserializeObject<PatientModel>(json);
 
@@ -312,7 +306,8 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
                     Allergies.Add(patientallergy);
                 }
 
-            }
+            DiagnosticsListBoxSelectedIndex = 0;
+
         }
 
         private void CalculateAge(DateTime birthDate)
@@ -403,27 +398,21 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
                 MyVisibility = Visibility.Hidden;
                 DiagnosticsAddButtonName = "Add";
 
-                var splittedDiagnostics = CommaDelimitedDiagnostics.Split(',');
-
-                foreach (var diagnostic in splittedDiagnostics)
-                {
-                    if (!Diagnostics.Contains(diagnostic) && !string.IsNullOrEmpty(diagnostic))
-                    {
-                        Diagnostics.Add(diagnostic);
-                        DiagnosticsListIndex = Diagnostics.Count - 1;
-
-                    }
-                    else
-                    {
-                        MessageBox.Show("Diagnostic is already in the list");
-                    }
-                  
-                }
-
+                Diagnostics =
+                    _collectionsManagerService.AddDelimitedValuesToCollection(CommaDelimitedDiagnostics, ',',Diagnostics);
+                
                 CommaDelimitedDiagnostics = string.Empty;
 
             }
 
+        }
+
+        private void RemoveDiagnostics()
+        {
+
+            Diagnostics = _collectionsManagerService
+                .RemoveFromCollection(DiagnosticsListBoxSelectedIndex, Diagnostics);
+            GenerateDiagnosticsSummaryText();
 
 
         }
@@ -450,11 +439,8 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
                 {
                     try
                     {
-                        var output = JsonConvert.SerializeObject(Model);
-                        output = output.Replace("[{", "{");
-                        output = output.Replace("}]", "}");
-
-                        File.WriteAllText(Resources.ApplicationDataFileDirectory, output);
+                        
+                        _patientDataRepository.WriteToJsonFile(Model);
 
                         Application.Current.Shutdown();
 

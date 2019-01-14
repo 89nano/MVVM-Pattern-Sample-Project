@@ -81,8 +81,7 @@
                     Grid.Column="0"
                     Height="AUTO"
                     Width="AUTO"
-                    Margin="10,0,110,15"
-                    >
+                    Margin="10,0,110,15">
 
             <TabItem Header="Demographics"
                      FontSize="14">
@@ -96,8 +95,8 @@
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
 
-                                <StackPanel Grid.Column="0">
-                                    <Label Content="Full Name"
+                    <StackPanel Grid.Column="0">
+                        <Label Content="Full Name"
                                            Height="28"
                                            HorizontalAlignment="Left"
                                            Name="patientNameLabel"

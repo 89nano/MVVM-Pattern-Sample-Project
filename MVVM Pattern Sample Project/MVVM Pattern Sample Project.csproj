@@ -60,6 +60,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Commands\DelegateCommand.cs" />
+    <Compile Include="Repositories\PatientDataRepository.cs" />
+    <Compile Include="Services\CollectionsManagerService.cs" />
     <Compile Include="ViewModels\PatientViewModel.cs" />
     <Compile Include="View\PatientView.xaml.cs">
       <DependentUpon>PatientView.xaml</DependentUpon>
@@ -114,8 +116,6 @@
   <ItemGroup>
     <Resource Include="bin\Debug\Images\StockPhoto.jpg" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Repositories\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
