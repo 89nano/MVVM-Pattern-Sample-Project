@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -34,7 +34,10 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
             _closeAndSaveCommand = new DelegateCommand(a => SaveAndClose());
             _addDiagnosticsCommand = new DelegateCommand(b => AddDiagnostics());
             _removeDiagnosticCommand = new DelegateCommand(c => RemoveDiagnostics());
+            _addAllergiesCommand = new DelegateCommand(d => AddAllergies());
+            _removeAllergiesCommand = new DelegateCommand(c => RemoveAllergies());
             DiagnosticsAddButtonName = "Add";
+            AllergiesAddButtonName = "Add";
             CommaDelimitedDiagnostics = string.Empty;
 
         }
@@ -69,9 +72,15 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
         private DelegateCommand _closeAndSaveCommand;
         private DelegateCommand _addDiagnosticsCommand;
         private DelegateCommand _removeDiagnosticCommand;
+        private DelegateCommand _removeAllergiesCommand;
+        private DelegateCommand _addAllergiesCommand;
         private string _diagnosticsAddButtonName;
+        private string _allergiesAddButtonName;
         private string _commaDelimitedDiagnostics;
+        private string _commaDelimitedAllergies;
         private int _diagnosticsListBoxSelectedIndex;
+        private int _allergiesListBoxSelectedIndex;
+
         private readonly CollectionsManagerService _collectionsManagerService;
 
         public PatientModel Model
@@ -96,6 +105,16 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
             }
         }
 
+        public string CommaDelimitedAllergies
+        {
+            get => _commaDelimitedAllergies;
+            set
+            {
+                _commaDelimitedAllergies = value;
+                OnPropertyChanged(nameof(CommaDelimitedAllergies));
+            }
+        }
+
         public Visibility MyVisibility
         {
             get => _myVisibility;
@@ -116,7 +135,16 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
             }
         }
 
-        
+        public int AllergiesListBoxSelectedIndex
+        {
+            get => _allergiesListBoxSelectedIndex;
+            set
+            {
+                _allergiesListBoxSelectedIndex = value;
+                OnPropertyChanged(nameof(AllergiesListBoxSelectedIndex));
+            }
+        }
+
 
         public string AgeAndSexSummary
         {
@@ -233,10 +261,15 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
             }
         }
 
-
-
-
-
+        public string AllergiesAddButtonName
+        {
+            get => _allergiesAddButtonName;
+            set
+            {
+                _allergiesAddButtonName = value;
+                OnPropertyChanged();
+            }
+        }
 
         public string Notes
         {
@@ -254,7 +287,8 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
 
         public DelegateCommand SaveChangesAndCloseCommand => _closeAndSaveCommand;
         public DelegateCommand AddDiagnosticsCommand => _addDiagnosticsCommand;
-        public DelegateCommand RemoveDiagnosticCommand => _removeDiagnosticCommand;
+        public DelegateCommand AddAllergiesCommand => _addAllergiesCommand;
+        public DelegateCommand RemoveAllergiesCommand => _removeAllergiesCommand;
 
 
         #endregion
@@ -405,6 +439,35 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
 
             }
 
+            if (Diagnostics.Count <=2)
+            {
+                GenerateDiagnosticsSummaryText();
+            }
+
+        }
+
+        private void AddAllergies()
+        {
+
+            if (MyVisibility == Visibility.Hidden)
+            {
+                MyVisibility = Visibility.Visible;
+                DiagnosticsAddButtonName = "Done";
+            }
+            else
+            {
+                MyVisibility = Visibility.Hidden;
+                DiagnosticsAddButtonName = "Add";
+
+               Allergies =
+                    _collectionsManagerService.AddDelimitedValuesToCollection(CommaDelimitedAllergies, ',', Allergies);
+
+                CommaDelimitedAllergies = string.Empty;
+
+            }
+
+            if(Allergies.Count <= 2) 
+                GenerateAllergiesSummaryText();
         }
 
         private void RemoveDiagnostics()
@@ -412,13 +475,26 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
 
             Diagnostics = _collectionsManagerService
                 .RemoveFromCollection(DiagnosticsListBoxSelectedIndex, Diagnostics);
-            GenerateDiagnosticsSummaryText();
+
+            if (Diagnostics.Count <=2)
+                GenerateDiagnosticsSummaryText();
+            
+
+        }
+
+        private void RemoveAllergies()
+        {
+
+           Allergies = _collectionsManagerService
+                .RemoveFromCollection(AllergiesListBoxSelectedIndex, Allergies);
+
+            if(Allergies.Count <=2)
+                GenerateAllergiesSummaryText();
 
 
         }
 
-
-
+     
 
         private void SaveAndClose()
         {

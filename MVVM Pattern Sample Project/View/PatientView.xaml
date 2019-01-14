@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="MVVM_Pattern_Sample_Project.View.PatientView"
+<UserControl x:Class="MVVM_Pattern_Sample_Project.View.PatientView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -67,8 +67,9 @@
 
                             <TextBlock Text="{Binding Path=AllergiesSummary,
                                 Mode=OneWay}"
+                                       TextWrapping="WrapWithOverflow"
                                        Margin="5 0 0 10"
-                                       FontSize="16"/>
+                                       FontSize="14"/>
 
 
                         </StackPanel>
@@ -241,9 +242,10 @@
                                Name="newAllergiesLabel"
                                Margin="-12 0 0 10"
                                VerticalAlignment="Center"
-                               FontSize="11" />
+                               FontSize="11"
+                               Visibility="{Binding Path=MyVisibility}"/>
 
-                        <TextBox Text="{Binding Path=CommaDelimitedAllergies, Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
+                        <TextBox Text="{Binding Path=CommaDelimitedAllergies, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                                  Width="150"
                                  Height="20"
                                  Margin="5 0 0 2"
@@ -263,7 +265,8 @@
                                 Height="20"
                                 Width="60"
                                 BorderThickness="0 0 2 2"
-                                FontSize="14">Remove</Button>
+                                FontSize="14"
+                                Command="{Binding Path=RemoveAllergiesCommand}">Remove</Button>
 
                     </StackPanel>
 
