@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -33,9 +33,10 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
             GenerateAllergiesSummaryText();
             _closeAndSaveCommand = new DelegateCommand(a => SaveAndClose());
             _addDiagnosticsCommand = new DelegateCommand(b => AddDiagnostics());
-            _removeDiagnosticCommand = new DelegateCommand(c => RemoveDiagnostics());
+            _removeDiagnosticsCommand = new DelegateCommand(c => RemoveDiagnostics());
             _addAllergiesCommand = new DelegateCommand(d => AddAllergies());
             _removeAllergiesCommand = new DelegateCommand(c => RemoveAllergies());
+
             DiagnosticsAddButtonName = "Add";
             AllergiesAddButtonName = "Add";
             CommaDelimitedDiagnostics = string.Empty;
@@ -71,13 +72,15 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
         private Visibility _myVisibility;
         private DelegateCommand _closeAndSaveCommand;
         private DelegateCommand _addDiagnosticsCommand;
-        private DelegateCommand _removeDiagnosticCommand;
+        private DelegateCommand _removeDiagnosticsCommand;
         private DelegateCommand _removeAllergiesCommand;
         private DelegateCommand _addAllergiesCommand;
+
         private string _diagnosticsAddButtonName;
         private string _allergiesAddButtonName;
         private string _commaDelimitedDiagnostics;
         private string _commaDelimitedAllergies;
+
         private int _diagnosticsListBoxSelectedIndex;
         private int _allergiesListBoxSelectedIndex;
 
@@ -288,6 +291,7 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
         public DelegateCommand SaveChangesAndCloseCommand => _closeAndSaveCommand;
         public DelegateCommand AddDiagnosticsCommand => _addDiagnosticsCommand;
         public DelegateCommand AddAllergiesCommand => _addAllergiesCommand;
+        public DelegateCommand RemoveDiagnosticsCommand => _removeDiagnosticsCommand;
         public DelegateCommand RemoveAllergiesCommand => _removeAllergiesCommand;
 
 
