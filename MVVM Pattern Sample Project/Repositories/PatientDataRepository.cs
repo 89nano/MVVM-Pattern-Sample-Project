@@ -20,14 +20,14 @@ namespace MVVM_Pattern_Sample_Project.Repositories
             output = output.Replace("[{", "{");
             output = output.Replace("}]", "}");
 
-            File.WriteAllText(Resources.ApplicationDataFileDirectory, output);
+            File.WriteAllText(Path.GetFullPath(Environment.CurrentDirectory + "/Data" + "/patientData.json"), output);
 
         }
 
 
         public string ReadJsonFile()
         {
-            using (StreamReader reader = new StreamReader(Resources.ApplicationDataFileDirectory))
+            using (StreamReader reader = new StreamReader(Environment.CurrentDirectory + "/Data" + "/patientData.json"))
             {
                 string json;
 

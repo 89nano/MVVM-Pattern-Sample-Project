@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using MVVM_Pattern_Sample_Project.Properties;
 
 namespace MVVM_Pattern_Sample_Project.Services
 {
@@ -26,7 +27,6 @@ namespace MVVM_Pattern_Sample_Project.Services
                 {
                     MessageBox.Show("Item is already in the list");
                 }
-
             }
 
             return Collection;
