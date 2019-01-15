@@ -178,7 +178,7 @@
                              ScrollViewer.VerticalScrollBarVisibility="Auto"
                              HorizontalAlignment="Left"
                              ItemsSource="{Binding Path=Diagnostics, Mode=OneWay}"
-                             SelectedIndex="{Binding Path=DiagnosticsListIndex,Mode=OneWay}"
+                             SelectedIndex="{Binding Path=DiagnosticsListBoxSelectedIndex,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                              
                              ></ListBox>
 
@@ -238,6 +238,7 @@
                              FontSize="16"
                              ScrollViewer.VerticalScrollBarVisibility="Auto"
                              ItemsSource="{Binding Path=Allergies}"
+                             SelectedIndex="{Binding Path=AllergiesListBoxSelectedIndex, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                             >
 
                     </ListBox>
