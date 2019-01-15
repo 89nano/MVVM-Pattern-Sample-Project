@@ -507,7 +507,7 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
 
 
 
-        private void SaveAndClose()
+        public void SaveAndClose()
         {
             UpdateModel();//Update working model
 

@@ -137,10 +137,24 @@ namespace MVVM_PatternWinForms
 
         private void btnSaveAndClose_Click(object sender, EventArgs e)
         {
-            _patientViewModel.UpdateModel();
-            _patientDataRepository.WriteToJsonFile(_patientViewModel.Model);
 
-            Close();
+
+            if (!_patientViewModel.Equals(_patientViewModel.Model, _patientViewModel.DeserializedPatientModel))
+            {
+                var updatePatient = MessageBox.Show(@"Do you want to update changes made to this patient?",
+                    @"Attention", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Exclamation);
+                if (updatePatient == DialogResult.Yes)
+                {
+                    _patientViewModel.UpdateModel();
+                    _patientDataRepository.WriteToJsonFile(_patientViewModel.Model);
+
+                    Close();
+                }
+                else if (updatePatient == DialogResult.No)
+                {
+                    Close();
+                }
+            }
 
         }
 
