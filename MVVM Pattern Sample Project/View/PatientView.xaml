@@ -90,7 +90,8 @@
                     Grid.Column="0"
                     Height="AUTO"
                     Width="AUTO"
-                    Margin="10,0,110,15">
+                    Margin="10,0,110,15"
+                    Background="LightGray">
 
             <TabItem Header="Demographics"
                      FontSize="14">

@@ -9,7 +9,7 @@
         Title="Mini-NeoMed" Height="AUTO" Width="AUTO"
         MaxHeight="500" MaxWidth="525"
         >
-    <Grid>
+    <Grid Background="LightSkyBlue">
         <views:PatientView x:Name="PatientViewControl"/>
     </Grid>
    
