@@ -76,36 +76,40 @@
             // lblFullNameSummary
             // 
             this.lblFullNameSummary.AutoSize = true;
-            this.lblFullNameSummary.Location = new System.Drawing.Point(237, 25);
+            this.lblFullNameSummary.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFullNameSummary.Location = new System.Drawing.Point(189, 25);
             this.lblFullNameSummary.Name = "lblFullNameSummary";
-            this.lblFullNameSummary.Size = new System.Drawing.Size(54, 13);
+            this.lblFullNameSummary.Size = new System.Drawing.Size(97, 24);
             this.lblFullNameSummary.TabIndex = 1;
             this.lblFullNameSummary.Text = "Full Name";
             // 
             // lblAgeAndSexSummary
             // 
             this.lblAgeAndSexSummary.AutoSize = true;
-            this.lblAgeAndSexSummary.Location = new System.Drawing.Point(237, 55);
+            this.lblAgeAndSexSummary.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAgeAndSexSummary.Location = new System.Drawing.Point(189, 55);
             this.lblAgeAndSexSummary.Name = "lblAgeAndSexSummary";
-            this.lblAgeAndSexSummary.Size = new System.Drawing.Size(114, 13);
+            this.lblAgeAndSexSummary.Size = new System.Drawing.Size(205, 24);
             this.lblAgeAndSexSummary.TabIndex = 2;
             this.lblAgeAndSexSummary.Text = "Age and Sex Summary";
             // 
             // lblDiagnosticsSummary
             // 
             this.lblDiagnosticsSummary.AutoSize = true;
-            this.lblDiagnosticsSummary.Location = new System.Drawing.Point(237, 85);
+            this.lblDiagnosticsSummary.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDiagnosticsSummary.Location = new System.Drawing.Point(189, 85);
             this.lblDiagnosticsSummary.Name = "lblDiagnosticsSummary";
-            this.lblDiagnosticsSummary.Size = new System.Drawing.Size(105, 13);
+            this.lblDiagnosticsSummary.Size = new System.Drawing.Size(186, 24);
             this.lblDiagnosticsSummary.TabIndex = 3;
             this.lblDiagnosticsSummary.Text = "DiagnosticsSummary";
             // 
             // lblAllergiesSummary
             // 
             this.lblAllergiesSummary.AutoSize = true;
-            this.lblAllergiesSummary.Location = new System.Drawing.Point(237, 115);
+            this.lblAllergiesSummary.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAllergiesSummary.Location = new System.Drawing.Point(189, 115);
             this.lblAllergiesSummary.Name = "lblAllergiesSummary";
-            this.lblAllergiesSummary.Size = new System.Drawing.Size(92, 13);
+            this.lblAllergiesSummary.Size = new System.Drawing.Size(168, 24);
             this.lblAllergiesSummary.TabIndex = 4;
             this.lblAllergiesSummary.Text = "Allergies Summary";
             // 
@@ -115,14 +119,16 @@
             this.tabCtrlMain.Controls.Add(this.Diagnostics);
             this.tabCtrlMain.Controls.Add(this.Allergies);
             this.tabCtrlMain.Cursor = System.Windows.Forms.Cursors.Default;
+            this.tabCtrlMain.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabCtrlMain.Location = new System.Drawing.Point(12, 174);
             this.tabCtrlMain.Name = "tabCtrlMain";
             this.tabCtrlMain.SelectedIndex = 0;
-            this.tabCtrlMain.Size = new System.Drawing.Size(539, 264);
+            this.tabCtrlMain.Size = new System.Drawing.Size(539, 282);
             this.tabCtrlMain.TabIndex = 5;
             // 
             // Demographics
             // 
+            this.Demographics.BackColor = System.Drawing.Color.LightGray;
             this.Demographics.Controls.Add(this.dtpBirthDate);
             this.Demographics.Controls.Add(this.cmbSex);
             this.Demographics.Controls.Add(this.txtNotes);
@@ -131,32 +137,34 @@
             this.Demographics.Controls.Add(this.lblSex);
             this.Demographics.Controls.Add(this.lblBirthDate);
             this.Demographics.Controls.Add(this.lblFullNameDemographics);
-            this.Demographics.Location = new System.Drawing.Point(4, 22);
+            this.Demographics.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Demographics.Location = new System.Drawing.Point(4, 33);
             this.Demographics.Name = "Demographics";
             this.Demographics.Padding = new System.Windows.Forms.Padding(3);
-            this.Demographics.Size = new System.Drawing.Size(531, 238);
+            this.Demographics.Size = new System.Drawing.Size(531, 245);
             this.Demographics.TabIndex = 0;
             this.Demographics.Text = "Demographics";
-            this.Demographics.UseVisualStyleBackColor = true;
             // 
             // dtpBirthDate
             // 
-            this.dtpBirthDate.Location = new System.Drawing.Point(71, 76);
+            this.dtpBirthDate.CalendarFont = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpBirthDate.Location = new System.Drawing.Point(143, 76);
             this.dtpBirthDate.Name = "dtpBirthDate";
-            this.dtpBirthDate.Size = new System.Drawing.Size(264, 20);
+            this.dtpBirthDate.Size = new System.Drawing.Size(264, 26);
             this.dtpBirthDate.TabIndex = 14;
             // 
             // cmbSex
             // 
             this.cmbSex.FormattingEnabled = true;
-            this.cmbSex.Location = new System.Drawing.Point(71, 114);
+            this.cmbSex.Location = new System.Drawing.Point(143, 114);
             this.cmbSex.Name = "cmbSex";
-            this.cmbSex.Size = new System.Drawing.Size(264, 21);
+            this.cmbSex.Size = new System.Drawing.Size(264, 28);
             this.cmbSex.TabIndex = 13;
             // 
             // txtNotes
             // 
-            this.txtNotes.Location = new System.Drawing.Point(71, 153);
+            this.txtNotes.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtNotes.Location = new System.Drawing.Point(143, 153);
             this.txtNotes.Multiline = true;
             this.txtNotes.Name = "txtNotes";
             this.txtNotes.Size = new System.Drawing.Size(264, 52);
@@ -164,93 +172,98 @@
             // 
             // txtFullName
             // 
-            this.txtFullName.Location = new System.Drawing.Point(71, 38);
+            this.txtFullName.Location = new System.Drawing.Point(143, 38);
             this.txtFullName.Name = "txtFullName";
-            this.txtFullName.Size = new System.Drawing.Size(264, 20);
+            this.txtFullName.Size = new System.Drawing.Size(264, 26);
             this.txtFullName.TabIndex = 9;
             // 
             // lblNotes
             // 
             this.lblNotes.AutoSize = true;
-            this.lblNotes.Location = new System.Drawing.Point(6, 152);
+            this.lblNotes.Location = new System.Drawing.Point(14, 152);
             this.lblNotes.Name = "lblNotes";
-            this.lblNotes.Size = new System.Drawing.Size(35, 13);
+            this.lblNotes.Size = new System.Drawing.Size(51, 20);
             this.lblNotes.TabIndex = 8;
             this.lblNotes.Text = "Notes";
             // 
             // lblSex
             // 
             this.lblSex.AutoSize = true;
-            this.lblSex.Location = new System.Drawing.Point(6, 122);
+            this.lblSex.Location = new System.Drawing.Point(14, 122);
             this.lblSex.Name = "lblSex";
-            this.lblSex.Size = new System.Drawing.Size(25, 13);
+            this.lblSex.Size = new System.Drawing.Size(36, 20);
             this.lblSex.TabIndex = 7;
             this.lblSex.Text = "Sex";
             // 
             // lblBirthDate
             // 
             this.lblBirthDate.AutoSize = true;
-            this.lblBirthDate.Location = new System.Drawing.Point(6, 84);
+            this.lblBirthDate.Location = new System.Drawing.Point(14, 84);
             this.lblBirthDate.Name = "lblBirthDate";
-            this.lblBirthDate.Size = new System.Drawing.Size(49, 13);
+            this.lblBirthDate.Size = new System.Drawing.Size(74, 20);
             this.lblBirthDate.TabIndex = 6;
             this.lblBirthDate.Text = "Birthdate";
             // 
             // lblFullNameDemographics
             // 
             this.lblFullNameDemographics.AutoSize = true;
-            this.lblFullNameDemographics.Location = new System.Drawing.Point(6, 47);
+            this.lblFullNameDemographics.Location = new System.Drawing.Point(14, 47);
             this.lblFullNameDemographics.Name = "lblFullNameDemographics";
-            this.lblFullNameDemographics.Size = new System.Drawing.Size(54, 13);
+            this.lblFullNameDemographics.Size = new System.Drawing.Size(80, 20);
             this.lblFullNameDemographics.TabIndex = 5;
             this.lblFullNameDemographics.Text = "Full Name";
             // 
             // Diagnostics
             // 
+            this.Diagnostics.BackColor = System.Drawing.Color.LightGray;
             this.Diagnostics.Controls.Add(this.lblDelimitedDiagnostics);
             this.Diagnostics.Controls.Add(this.txtCommaDelimitedDiagnostics);
             this.Diagnostics.Controls.Add(this.lstboxDiagnostics);
             this.Diagnostics.Controls.Add(this.btnRemoveDiagnostics);
             this.Diagnostics.Controls.Add(this.btnAddDiagnostics);
-            this.Diagnostics.Location = new System.Drawing.Point(4, 22);
+            this.Diagnostics.Location = new System.Drawing.Point(4, 33);
             this.Diagnostics.Name = "Diagnostics";
             this.Diagnostics.Padding = new System.Windows.Forms.Padding(3);
-            this.Diagnostics.Size = new System.Drawing.Size(531, 238);
+            this.Diagnostics.Size = new System.Drawing.Size(531, 245);
             this.Diagnostics.TabIndex = 1;
             this.Diagnostics.Text = "Diagnostics";
-            this.Diagnostics.UseVisualStyleBackColor = true;
             // 
             // lblDelimitedDiagnostics
             // 
             this.lblDelimitedDiagnostics.AutoSize = true;
-            this.lblDelimitedDiagnostics.Location = new System.Drawing.Point(42, 216);
+            this.lblDelimitedDiagnostics.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDelimitedDiagnostics.Location = new System.Drawing.Point(14, 206);
             this.lblDelimitedDiagnostics.Name = "lblDelimitedDiagnostics";
-            this.lblDelimitedDiagnostics.Size = new System.Drawing.Size(93, 13);
+            this.lblDelimitedDiagnostics.Size = new System.Drawing.Size(139, 20);
             this.lblDelimitedDiagnostics.TabIndex = 6;
             this.lblDelimitedDiagnostics.Text = "Enter Diagnostics:";
             this.lblDelimitedDiagnostics.Visible = false;
             // 
             // txtCommaDelimitedDiagnostics
             // 
-            this.txtCommaDelimitedDiagnostics.Location = new System.Drawing.Point(150, 211);
+            this.txtCommaDelimitedDiagnostics.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCommaDelimitedDiagnostics.Location = new System.Drawing.Point(159, 203);
             this.txtCommaDelimitedDiagnostics.Name = "txtCommaDelimitedDiagnostics";
-            this.txtCommaDelimitedDiagnostics.Size = new System.Drawing.Size(176, 20);
+            this.txtCommaDelimitedDiagnostics.Size = new System.Drawing.Size(176, 26);
             this.txtCommaDelimitedDiagnostics.TabIndex = 10;
             this.txtCommaDelimitedDiagnostics.Visible = false;
             // 
             // lstboxDiagnostics
             // 
+            this.lstboxDiagnostics.BackColor = System.Drawing.SystemColors.Window;
             this.lstboxDiagnostics.FormattingEnabled = true;
+            this.lstboxDiagnostics.ItemHeight = 24;
             this.lstboxDiagnostics.Location = new System.Drawing.Point(6, 6);
             this.lstboxDiagnostics.Name = "lstboxDiagnostics";
-            this.lstboxDiagnostics.Size = new System.Drawing.Size(519, 186);
+            this.lstboxDiagnostics.Size = new System.Drawing.Size(519, 172);
             this.lstboxDiagnostics.TabIndex = 4;
             // 
             // btnRemoveDiagnostics
             // 
-            this.btnRemoveDiagnostics.Location = new System.Drawing.Point(451, 209);
+            this.btnRemoveDiagnostics.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRemoveDiagnostics.Location = new System.Drawing.Point(443, 201);
             this.btnRemoveDiagnostics.Name = "btnRemoveDiagnostics";
-            this.btnRemoveDiagnostics.Size = new System.Drawing.Size(75, 23);
+            this.btnRemoveDiagnostics.Size = new System.Drawing.Size(83, 29);
             this.btnRemoveDiagnostics.TabIndex = 3;
             this.btnRemoveDiagnostics.Text = "Remove";
             this.btnRemoveDiagnostics.UseVisualStyleBackColor = true;
@@ -258,58 +271,63 @@
             // 
             // btnAddDiagnostics
             // 
-            this.btnAddDiagnostics.Location = new System.Drawing.Point(360, 209);
+            this.btnAddDiagnostics.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAddDiagnostics.Location = new System.Drawing.Point(350, 201);
             this.btnAddDiagnostics.Name = "btnAddDiagnostics";
-            this.btnAddDiagnostics.Size = new System.Drawing.Size(75, 23);
+            this.btnAddDiagnostics.Size = new System.Drawing.Size(83, 29);
             this.btnAddDiagnostics.TabIndex = 2;
             this.btnAddDiagnostics.UseVisualStyleBackColor = true;
             this.btnAddDiagnostics.Click += new System.EventHandler(this.btnAddDiagnostics_Click);
             // 
             // Allergies
             // 
+            this.Allergies.BackColor = System.Drawing.Color.LightGray;
             this.Allergies.Controls.Add(this.lblDelimitedAllergies);
             this.Allergies.Controls.Add(this.txtCommaDelimitedAllergies);
             this.Allergies.Controls.Add(this.lstboxAllergies);
             this.Allergies.Controls.Add(this.btnRemoveAllergies);
             this.Allergies.Controls.Add(this.btnAddAllergies);
-            this.Allergies.Location = new System.Drawing.Point(4, 22);
+            this.Allergies.Location = new System.Drawing.Point(4, 33);
             this.Allergies.Name = "Allergies";
-            this.Allergies.Size = new System.Drawing.Size(531, 238);
+            this.Allergies.Size = new System.Drawing.Size(531, 245);
             this.Allergies.TabIndex = 2;
             this.Allergies.Text = "Allergies";
-            this.Allergies.UseVisualStyleBackColor = true;
             // 
             // lblDelimitedAllergies
             // 
             this.lblDelimitedAllergies.AutoSize = true;
-            this.lblDelimitedAllergies.Location = new System.Drawing.Point(42, 216);
+            this.lblDelimitedAllergies.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDelimitedAllergies.Location = new System.Drawing.Point(19, 205);
             this.lblDelimitedAllergies.Name = "lblDelimitedAllergies";
-            this.lblDelimitedAllergies.Size = new System.Drawing.Size(77, 13);
+            this.lblDelimitedAllergies.Size = new System.Drawing.Size(116, 20);
             this.lblDelimitedAllergies.TabIndex = 11;
             this.lblDelimitedAllergies.Text = "Enter Allergies:";
             this.lblDelimitedAllergies.Visible = false;
             // 
             // txtCommaDelimitedAllergies
             // 
-            this.txtCommaDelimitedAllergies.Location = new System.Drawing.Point(150, 211);
+            this.txtCommaDelimitedAllergies.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCommaDelimitedAllergies.Location = new System.Drawing.Point(159, 203);
             this.txtCommaDelimitedAllergies.Name = "txtCommaDelimitedAllergies";
-            this.txtCommaDelimitedAllergies.Size = new System.Drawing.Size(176, 20);
+            this.txtCommaDelimitedAllergies.Size = new System.Drawing.Size(176, 26);
             this.txtCommaDelimitedAllergies.TabIndex = 12;
             this.txtCommaDelimitedAllergies.Visible = false;
             // 
             // lstboxAllergies
             // 
             this.lstboxAllergies.FormattingEnabled = true;
+            this.lstboxAllergies.ItemHeight = 24;
             this.lstboxAllergies.Location = new System.Drawing.Point(6, 6);
             this.lstboxAllergies.Name = "lstboxAllergies";
-            this.lstboxAllergies.Size = new System.Drawing.Size(519, 186);
+            this.lstboxAllergies.Size = new System.Drawing.Size(519, 172);
             this.lstboxAllergies.TabIndex = 6;
             // 
             // btnRemoveAllergies
             // 
-            this.btnRemoveAllergies.Location = new System.Drawing.Point(451, 209);
+            this.btnRemoveAllergies.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRemoveAllergies.Location = new System.Drawing.Point(443, 201);
             this.btnRemoveAllergies.Name = "btnRemoveAllergies";
-            this.btnRemoveAllergies.Size = new System.Drawing.Size(75, 23);
+            this.btnRemoveAllergies.Size = new System.Drawing.Size(83, 29);
             this.btnRemoveAllergies.TabIndex = 5;
             this.btnRemoveAllergies.Text = "Remove";
             this.btnRemoveAllergies.UseVisualStyleBackColor = true;
@@ -317,20 +335,22 @@
             // 
             // btnAddAllergies
             // 
-            this.btnAddAllergies.Location = new System.Drawing.Point(360, 209);
+            this.btnAddAllergies.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAddAllergies.Location = new System.Drawing.Point(350, 201);
             this.btnAddAllergies.Name = "btnAddAllergies";
-            this.btnAddAllergies.Size = new System.Drawing.Size(75, 23);
+            this.btnAddAllergies.Size = new System.Drawing.Size(83, 29);
             this.btnAddAllergies.TabIndex = 4;
             this.btnAddAllergies.UseVisualStyleBackColor = true;
             this.btnAddAllergies.Click += new System.EventHandler(this.btnAddAllergies_Click);
             // 
             // btnSaveAndClose
             // 
-            this.btnSaveAndClose.Location = new System.Drawing.Point(431, 462);
+            this.btnSaveAndClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSaveAndClose.Location = new System.Drawing.Point(407, 462);
             this.btnSaveAndClose.Name = "btnSaveAndClose";
-            this.btnSaveAndClose.Size = new System.Drawing.Size(111, 23);
+            this.btnSaveAndClose.Size = new System.Drawing.Size(140, 30);
             this.btnSaveAndClose.TabIndex = 2;
-            this.btnSaveAndClose.Text = "Save and Close";
+            this.btnSaveAndClose.Text = "&Save and Close";
             this.btnSaveAndClose.UseVisualStyleBackColor = true;
             this.btnSaveAndClose.Click += new System.EventHandler(this.btnSaveAndClose_Click);
             // 
@@ -338,7 +358,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(563, 497);
+            this.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.ClientSize = new System.Drawing.Size(563, 504);
             this.Controls.Add(this.btnSaveAndClose);
             this.Controls.Add(this.tabCtrlMain);
             this.Controls.Add(this.lblAllergiesSummary);
