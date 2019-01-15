@@ -52,6 +52,10 @@
             this.btnRemoveAllergies = new System.Windows.Forms.Button();
             this.btnAddAllergies = new System.Windows.Forms.Button();
             this.btnSaveAndClose = new System.Windows.Forms.Button();
+            this.txtCommaDelimitedDiagnostics = new System.Windows.Forms.TextBox();
+            this.lblDelimitedDiagnostics = new System.Windows.Forms.Label();
+            this.lblDelimitedAllergies = new System.Windows.Forms.Label();
+            this.txtCommaDelimitedAllergies = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pbPatientImage)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.Demographics.SuspendLayout();
@@ -201,6 +205,8 @@
             // 
             // Diagnostics
             // 
+            this.Diagnostics.Controls.Add(this.lblDelimitedDiagnostics);
+            this.Diagnostics.Controls.Add(this.txtCommaDelimitedDiagnostics);
             this.Diagnostics.Controls.Add(this.lstboxDiagnostics);
             this.Diagnostics.Controls.Add(this.btnRemoveDiagnostics);
             this.Diagnostics.Controls.Add(this.btnAddDiagnostics);
@@ -235,11 +241,13 @@
             this.btnAddDiagnostics.Name = "btnAddDiagnostics";
             this.btnAddDiagnostics.Size = new System.Drawing.Size(75, 23);
             this.btnAddDiagnostics.TabIndex = 2;
-            this.btnAddDiagnostics.Text = "Add";
             this.btnAddDiagnostics.UseVisualStyleBackColor = true;
+            this.btnAddDiagnostics.Click += new System.EventHandler(this.btnAddDiagnostics_Click);
             // 
             // Allergies
             // 
+            this.Allergies.Controls.Add(this.lblDelimitedAllergies);
+            this.Allergies.Controls.Add(this.txtCommaDelimitedAllergies);
             this.Allergies.Controls.Add(this.lstboxAllergies);
             this.Allergies.Controls.Add(this.btnRemoveAllergies);
             this.Allergies.Controls.Add(this.btnAddAllergies);
@@ -273,7 +281,6 @@
             this.btnAddAllergies.Name = "btnAddAllergies";
             this.btnAddAllergies.Size = new System.Drawing.Size(75, 23);
             this.btnAddAllergies.TabIndex = 4;
-            this.btnAddAllergies.Text = "Add";
             this.btnAddAllergies.UseVisualStyleBackColor = true;
             // 
             // btnSaveAndClose
@@ -284,6 +291,43 @@
             this.btnSaveAndClose.TabIndex = 2;
             this.btnSaveAndClose.Text = "Save and Close";
             this.btnSaveAndClose.UseVisualStyleBackColor = true;
+            this.btnSaveAndClose.Click += new System.EventHandler(this.btnSaveAndClose_Click);
+            // 
+            // txtCommaDelimitedDiagnostics
+            // 
+            this.txtCommaDelimitedDiagnostics.Location = new System.Drawing.Point(150, 211);
+            this.txtCommaDelimitedDiagnostics.Name = "txtCommaDelimitedDiagnostics";
+            this.txtCommaDelimitedDiagnostics.Size = new System.Drawing.Size(176, 20);
+            this.txtCommaDelimitedDiagnostics.TabIndex = 10;
+            this.txtCommaDelimitedDiagnostics.Visible = false;
+            // 
+            // lblDelimitedDiagnostics
+            // 
+            this.lblDelimitedDiagnostics.AutoSize = true;
+            this.lblDelimitedDiagnostics.Location = new System.Drawing.Point(42, 216);
+            this.lblDelimitedDiagnostics.Name = "lblDelimitedDiagnostics";
+            this.lblDelimitedDiagnostics.Size = new System.Drawing.Size(93, 13);
+            this.lblDelimitedDiagnostics.TabIndex = 6;
+            this.lblDelimitedDiagnostics.Text = "Enter Diagnostics:";
+            this.lblDelimitedDiagnostics.Visible = false;
+            // 
+            // lblDelimitedAllergies
+            // 
+            this.lblDelimitedAllergies.AutoSize = true;
+            this.lblDelimitedAllergies.Location = new System.Drawing.Point(42, 216);
+            this.lblDelimitedAllergies.Name = "lblDelimitedAllergies";
+            this.lblDelimitedAllergies.Size = new System.Drawing.Size(77, 13);
+            this.lblDelimitedAllergies.TabIndex = 11;
+            this.lblDelimitedAllergies.Text = "Enter Allergies:";
+            this.lblDelimitedAllergies.Visible = false;
+            // 
+            // txtCommaDelimitedAllergies
+            // 
+            this.txtCommaDelimitedAllergies.Location = new System.Drawing.Point(150, 211);
+            this.txtCommaDelimitedAllergies.Name = "txtCommaDelimitedAllergies";
+            this.txtCommaDelimitedAllergies.Size = new System.Drawing.Size(176, 20);
+            this.txtCommaDelimitedAllergies.TabIndex = 12;
+            this.txtCommaDelimitedAllergies.Visible = false;
             // 
             // MiniNeoMedForm
             // 
@@ -304,7 +348,9 @@
             this.Demographics.ResumeLayout(false);
             this.Demographics.PerformLayout();
             this.Diagnostics.ResumeLayout(false);
+            this.Diagnostics.PerformLayout();
             this.Allergies.ResumeLayout(false);
+            this.Allergies.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -336,6 +382,10 @@
         private System.Windows.Forms.Button btnSaveAndClose;
         private System.Windows.Forms.ComboBox cmbSex;
         private System.Windows.Forms.DateTimePicker dtpBirthDate;
+        private System.Windows.Forms.Label lblDelimitedDiagnostics;
+        private System.Windows.Forms.TextBox txtCommaDelimitedDiagnostics;
+        private System.Windows.Forms.Label lblDelimitedAllergies;
+        private System.Windows.Forms.TextBox txtCommaDelimitedAllergies;
     }
 }
 

@@ -593,7 +593,7 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
 
         }
 
-        private void UpdateModel()
+        public void UpdateModel()
         {
             Model.FullName = FullName;
             Model.BirthDate = BirthDate;

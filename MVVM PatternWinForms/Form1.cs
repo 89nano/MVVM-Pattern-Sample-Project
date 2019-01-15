@@ -19,15 +19,14 @@ namespace MVVM_PatternWinForms
 {
     public partial class MiniNeoMedForm : Form
     {
-        public MiniNeoMedForm(PatientViewModel patientViewModel, PatientDataRepository patientDataRepository,
-            PatientModel patientModel)
+        public MiniNeoMedForm(PatientViewModel patientViewModel, PatientDataRepository patientDataRepository)
         {
             InitializeComponent();
             _patientViewModel = patientViewModel;
             _patientDataRepository = patientDataRepository;
+            _collectionsManagerService = new CollectionsManagerService();
 
-            pbPatientImage.DataBindings.Add("Text", _patientViewModel, "PicturePath", true, DataSourceUpdateMode.OnPropertyChanged);
-            pbPatientImage.ImageLocation = _patientViewModel.PicturePath;
+            pbPatientImage.DataBindings.Add("ImageLocation", _patientViewModel, "PicturePath", true, DataSourceUpdateMode.OnPropertyChanged);
 
             lblFullNameSummary.DataBindings.Add("Text", _patientViewModel, "FullName", true, DataSourceUpdateMode.OnPropertyChanged);
             lblAgeAndSexSummary.DataBindings.Add("Text", _patientViewModel, "AgeAndSexSummary", true, DataSourceUpdateMode.OnPropertyChanged);
@@ -40,11 +39,14 @@ namespace MVVM_PatternWinForms
             cmbSex.DataBindings.Add("Text", _patientViewModel, "Sex", true, DataSourceUpdateMode.OnPropertyChanged);
             txtNotes.DataBindings.Add("Text", _patientViewModel, "Notes", true, DataSourceUpdateMode.OnPropertyChanged);
 
-            lstboxDiagnostics.DataBindings.Add("Text", _patientViewModel, "Diagnostics", false, DataSourceUpdateMode.OnPropertyChanged);
-            lstboxDiagnostics.DataSource = _patientViewModel.Diagnostics;
-            lstboxAllergies.DataBindings.Add("Text", _patientViewModel, "Allergies", true, DataSourceUpdateMode.OnPropertyChanged);
-            lstboxAllergies.DataSource = _patientViewModel.Allergies;
+            //Binding binding1 = new Binding("DataSource",_patientViewModel,"Diagnostics",true,DataSourceUpdateMode.OnPropertyChanged);
 
+            lstboxDiagnostics.DataBindings.Add("DataSource", _patientViewModel, "Diagnostics", true, DataSourceUpdateMode.OnPropertyChanged);
+            lstboxDiagnostics.DataBindings.Add("Text", _patientViewModel, "Diagnostics", true, DataSourceUpdateMode.OnPropertyChanged);
+            
+            lstboxAllergies.DataBindings.Add("DataSource", _patientViewModel, "Allergies", true, DataSourceUpdateMode.OnPropertyChanged);
+            btnAddDiagnostics.DataBindings.Add("Text", _patientViewModel, "DiagnosticsAddButtonName");
+            btnAddAllergies.DataBindings.Add("Text", _patientViewModel, "AllergiesAddButtonName");
         }
 
         public PatientViewModel PatientViewModel
@@ -55,6 +57,45 @@ namespace MVVM_PatternWinForms
 
         private PatientViewModel _patientViewModel;
         private PatientDataRepository _patientDataRepository { get; set; }
-      
+        private CollectionsManagerService _collectionsManagerService { get; set; }
+
+
+        private void btnAddDiagnostics_Click(object sender, EventArgs e)
+        {
+            var visible = lblDelimitedDiagnostics.Visible;
+            if (!visible)
+            {
+                lblDelimitedDiagnostics.Visible = true;
+                txtCommaDelimitedDiagnostics.Visible = true;
+                _patientViewModel.DiagnosticsAddButtonName = "Done";
+                txtCommaDelimitedDiagnostics.Focus();
+
+            }
+            else
+            {
+                var delimitedValues = txtCommaDelimitedDiagnostics.Text;
+                if(!string.IsNullOrEmpty(delimitedValues))
+
+                _patientViewModel.Diagnostics = _collectionsManagerService.
+                    AddDelimitedValuesToCollection(delimitedValues, ',', _patientViewModel.Diagnostics);
+                
+                _patientViewModel.DiagnosticsAddButtonName = "Add";
+                txtCommaDelimitedDiagnostics.Clear();
+                lblDelimitedDiagnostics.Visible = false;
+                txtCommaDelimitedDiagnostics.Visible = false;
+
+            }
+
+
+        }
+
+        private void btnSaveAndClose_Click(object sender, EventArgs e)
+        {
+            _patientViewModel.UpdateModel();
+            _patientDataRepository.WriteToJsonFile(_patientViewModel.Model);
+           
+            Close();
+            
+        }
     }
 }

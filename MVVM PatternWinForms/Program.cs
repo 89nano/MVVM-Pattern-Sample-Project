@@ -27,7 +27,7 @@ namespace MVVM_PatternWinForms
             PatientModel patientModel = JsonConvert.DeserializeObject<PatientModel>(json);
 
 
-            Application.Run(new MiniNeoMedForm(new PatientViewModel(), patientDataRepository ,patientModel ));
+            Application.Run(new MiniNeoMedForm(new PatientViewModel(), patientDataRepository));
         }
     }
 }
