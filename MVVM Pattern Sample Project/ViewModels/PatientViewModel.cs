@@ -44,54 +44,7 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
 
         }
 
-        public void OpenExplorerToChangePicture()
-        {
-            var appImagesPath = Environment.CurrentDirectory + @"\Images";
-
-            // Displays an OpenFileDialog so the user can select an image.  
-            OpenFileDialog imagesOpenFileDialog = new OpenFileDialog();
-            imagesOpenFileDialog.Filter = "Image files (*.png;*.jpeg;*.jpg)|*.png;*.jpeg;*.jpg|All files (*.*)|*.*";
-            imagesOpenFileDialog.Title = "Select an Image";
-            imagesOpenFileDialog.Multiselect = false;
-            imagesOpenFileDialog.InitialDirectory =
-                Path.GetFullPath(appImagesPath);
-
-            var result = imagesOpenFileDialog.ShowDialog();
-            var selectedImagePath = string.Empty;
-            var retrievedPathWithFileName = string.Empty;
-            var imageName = PictureName;
-
-            if (result.HasValue && result.Value)
-            {
-                //path includes name
-                retrievedPathWithFileName = imagesOpenFileDialog.FileName;
-                //gets path only
-                selectedImagePath = retrievedPathWithFileName.Substring(0, retrievedPathWithFileName
-                    .LastIndexOf(("\\"), StringComparison.Ordinal))
-                    ;
-                //get image name from path
-                imageName = retrievedPathWithFileName.Substring(retrievedPathWithFileName
-                    .LastIndexOf("\\", StringComparison.Ordinal) + 1);
-            }
-
-            //If selected and image outside of the app's image directory, copy that image
-            //to the app's image directory
-            if (selectedImagePath != Environment.CurrentDirectory + "images")
-            {
-                if (!string.IsNullOrEmpty(retrievedPathWithFileName))
-                {
-                    try
-                    {
-                        File.Copy(retrievedPathWithFileName, appImagesPath + "\\" + imageName);
-                        PictureName = imageName;
-                    }
-                    catch (IOException e)
-                    {
-                        PictureName = imageName;
-                    }
-                }
-            }
-        }
+      
 
 
         #region Properties
@@ -135,6 +88,8 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
         private int _allergiesListBoxSelectedIndex;
 
         private readonly CollectionsManagerService _collectionsManagerService;
+
+
 
         public PatientModel Model
         {
@@ -526,7 +481,7 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
                 GenerateAllergiesSummaryText();
         }
 
-        private void RemoveDiagnostics()
+        public void RemoveDiagnostics()
         {
 
             Diagnostics = _collectionsManagerService
@@ -538,7 +493,7 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
 
         }
 
-        private void RemoveAllergies()
+        public void RemoveAllergies()
         {
 
             Allergies = _collectionsManagerService
@@ -605,7 +560,60 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
 
         }
 
+        public void OpenExplorerToChangePicture()
+        {
+            var appImagesPath = Environment.CurrentDirectory + @"\Images";
+
+            // Displays an OpenFileDialog so the user can select an image.  
+            OpenFileDialog imagesOpenFileDialog = new OpenFileDialog();
+            imagesOpenFileDialog.Filter = "Image files (*.png;*.jpeg;*.jpg)|*.png;*.jpeg;*.jpg|All files (*.*)|*.*";
+            imagesOpenFileDialog.Title = "Select an Image";
+            imagesOpenFileDialog.Multiselect = false;
+            imagesOpenFileDialog.InitialDirectory =
+                Path.GetFullPath(appImagesPath);
+
+            var result = imagesOpenFileDialog.ShowDialog();
+            var selectedImagePath = string.Empty;
+            var retrievedPathWithFileName = string.Empty;
+            var imageName = PictureName;
+
+            if (result.HasValue && result.Value)
+            {
+                //path includes name
+                retrievedPathWithFileName = imagesOpenFileDialog.FileName;
+                //gets path only
+                selectedImagePath = retrievedPathWithFileName.Substring(0, retrievedPathWithFileName
+                    .LastIndexOf(("\\"), StringComparison.Ordinal))
+                    ;
+                //get image name from path
+                imageName = retrievedPathWithFileName.Substring(retrievedPathWithFileName
+                    .LastIndexOf("\\", StringComparison.Ordinal) + 1);
+            }
+
+            //If selected and image outside of the app's image directory, copy that image
+            //to the app's image directory
+            if (selectedImagePath != Environment.CurrentDirectory + "images")
+            {
+                if (!string.IsNullOrEmpty(retrievedPathWithFileName))
+                {
+                    try
+                    {
+                        File.Copy(retrievedPathWithFileName, appImagesPath + "\\" + imageName);
+                        PictureName = imageName;
+                    }
+                    catch (IOException e)
+                    {
+                        PictureName = imageName;
+                    }
+                }
+            }
+        }
+
         #endregion
+
+
+
+        #region IEqualityComparerImplementation
 
         public bool Equals(PatientModel workingModel, PatientModel deserializedPatientModel)
         {
@@ -632,6 +640,10 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
         {
             throw new NotImplementedException();
         }
+
+        #endregion
+
+        
     }
 
 
