@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MVVM_Pattern_Sample_Project.Commands;
 using MVVM_Pattern_Sample_Project.ViewModels;
 using MVVM_Pattern_Sample_Project.Model;
 using MVVM_Pattern_Sample_Project.Properties;
@@ -96,6 +97,11 @@ namespace MVVM_PatternWinForms
            
             Close();
             
+        }
+
+        private void pbPatientImage_Click(object sender, EventArgs e)
+        {
+            _patientViewModel.OpenExplorerToChangePicture();
         }
     }
 }

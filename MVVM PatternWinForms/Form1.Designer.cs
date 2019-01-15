@@ -71,6 +71,7 @@
             this.pbPatientImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbPatientImage.TabIndex = 0;
             this.pbPatientImage.TabStop = false;
+            this.pbPatientImage.Click += new System.EventHandler(this.pbPatientImage_Click);
             // 
             // lblFullNameSummary
             // 

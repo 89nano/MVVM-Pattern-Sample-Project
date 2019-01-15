@@ -44,7 +44,7 @@ namespace MVVM_Pattern_Sample_Project.ViewModels
 
         }
 
-        private void OpenExplorerToChangePicture()
+        public void OpenExplorerToChangePicture()
         {
             var appImagesPath = Environment.CurrentDirectory + @"\Images";
 
