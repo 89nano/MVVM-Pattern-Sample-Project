@@ -36,7 +36,7 @@ namespace MVVM_Pattern_Sample_Project.Services
         public ObservableCollection<string> RemoveFromCollection(int workingListBoxIndex,
             ObservableCollection<string> Collection)
         {
-
+            if(Collection.Count>0)
             Collection.RemoveAt(workingListBoxIndex);
 
             return Collection;
