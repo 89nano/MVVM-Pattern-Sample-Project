@@ -35,9 +35,9 @@
             this.lblAllergiesSummary = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.Demographics = new System.Windows.Forms.TabPage();
+            this.dtpBirthDate = new System.Windows.Forms.DateTimePicker();
             this.cmbSex = new System.Windows.Forms.ComboBox();
             this.txtNotes = new System.Windows.Forms.TextBox();
-            this.txtBirthDate = new System.Windows.Forms.TextBox();
             this.txtFullName = new System.Windows.Forms.TextBox();
             this.lblNotes = new System.Windows.Forms.Label();
             this.lblSex = new System.Windows.Forms.Label();
@@ -64,6 +64,7 @@
             this.pbPatientImage.Location = new System.Drawing.Point(12, 12);
             this.pbPatientImage.Name = "pbPatientImage";
             this.pbPatientImage.Size = new System.Drawing.Size(139, 134);
+            this.pbPatientImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbPatientImage.TabIndex = 0;
             this.pbPatientImage.TabStop = false;
             // 
@@ -116,9 +117,9 @@
             // 
             // Demographics
             // 
+            this.Demographics.Controls.Add(this.dtpBirthDate);
             this.Demographics.Controls.Add(this.cmbSex);
             this.Demographics.Controls.Add(this.txtNotes);
-            this.Demographics.Controls.Add(this.txtBirthDate);
             this.Demographics.Controls.Add(this.txtFullName);
             this.Demographics.Controls.Add(this.lblNotes);
             this.Demographics.Controls.Add(this.lblSex);
@@ -131,6 +132,13 @@
             this.Demographics.TabIndex = 0;
             this.Demographics.Text = "Demographics";
             this.Demographics.UseVisualStyleBackColor = true;
+            // 
+            // dtpBirthDate
+            // 
+            this.dtpBirthDate.Location = new System.Drawing.Point(71, 76);
+            this.dtpBirthDate.Name = "dtpBirthDate";
+            this.dtpBirthDate.Size = new System.Drawing.Size(264, 20);
+            this.dtpBirthDate.TabIndex = 14;
             // 
             // cmbSex
             // 
@@ -147,13 +155,6 @@
             this.txtNotes.Name = "txtNotes";
             this.txtNotes.Size = new System.Drawing.Size(264, 52);
             this.txtNotes.TabIndex = 12;
-            // 
-            // txtBirthDate
-            // 
-            this.txtBirthDate.Location = new System.Drawing.Point(71, 77);
-            this.txtBirthDate.Name = "txtBirthDate";
-            this.txtBirthDate.Size = new System.Drawing.Size(264, 20);
-            this.txtBirthDate.TabIndex = 11;
             // 
             // txtFullName
             // 
@@ -298,7 +299,6 @@
             this.Controls.Add(this.pbPatientImage);
             this.Name = "MiniNeoMedForm";
             this.Text = "Mini-NeoMed";
-            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pbPatientImage)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.Demographics.ResumeLayout(false);
@@ -320,7 +320,6 @@
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage Demographics;
         private System.Windows.Forms.TextBox txtNotes;
-        private System.Windows.Forms.TextBox txtBirthDate;
         private System.Windows.Forms.TextBox txtFullName;
         private System.Windows.Forms.Label lblNotes;
         private System.Windows.Forms.Label lblSex;
@@ -336,6 +335,7 @@
         private System.Windows.Forms.Button btnAddAllergies;
         private System.Windows.Forms.Button btnSaveAndClose;
         private System.Windows.Forms.ComboBox cmbSex;
+        private System.Windows.Forms.DateTimePicker dtpBirthDate;
     }
 }
 

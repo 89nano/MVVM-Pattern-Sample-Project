@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MVVM_Pattern_Sample_Project.Model;
+using MVVM_Pattern_Sample_Project.Repositories;
+using MVVM_Pattern_Sample_Project.ViewModels;
+using Newtonsoft.Json;
 
 namespace MVVM_PatternWinForms
 {
@@ -16,7 +20,14 @@ namespace MVVM_PatternWinForms
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MiniNeoMedForm());
+
+            PatientDataRepository patientDataRepository = new PatientDataRepository();
+            string json = patientDataRepository.ReadJsonFile();
+
+            PatientModel patientModel = JsonConvert.DeserializeObject<PatientModel>(json);
+
+
+            Application.Run(new MiniNeoMedForm(new PatientViewModel(), patientDataRepository ,patientModel ));
         }
     }
 }
