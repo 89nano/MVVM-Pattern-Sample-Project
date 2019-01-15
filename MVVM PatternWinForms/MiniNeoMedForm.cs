@@ -157,6 +157,8 @@ namespace MVVM_PatternWinForms
         private void btnRemoveAllergies_Click(object sender, EventArgs e)
         {
             _patientViewModel.RemoveAllergies();
+            _patientViewModel.Allergies = new ObservableCollection<string>(_patientViewModel.Allergies);
+            _patientViewModel.AllergiesListBoxSelectedIndex = 0;
         }
 
         private void btnRemoveDiagnostics_Click(object sender, EventArgs e)
